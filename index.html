@@ -1,0 +1,1471 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="GroomHub — Student Entrepreneurship Ecosystem"
+    />
+    <title>GroomHub | Student Entrepreneurship Ecosystem</title>
+    <style>
+      :root {
+        --bg-dark: #0a0a0c;
+        --bg-panel: #121216;
+        --bg-card: #18181c;
+        --border-color: #222228;
+        --border-glow: #2d2d35;
+
+        --gold: #d4af37;
+        --gold-hover: #f3cf55;
+        --gold-glow: rgba(212, 175, 55, 0.15);
+
+        --text-main: #f3f4f6;
+        --text-muted: #9ca3af;
+        --text-dark: #111827;
+
+        --success: #10b981;
+        --error: #ef4444;
+
+        --radius-lg: 16px;
+        --radius-md: 12px;
+        --radius-sm: 8px;
+        --font: "Segoe UI", system-ui, -apple-system, sans-serif;
+      }
+
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+      }
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        margin: 0;
+        font-family: var(--font);
+        background: var(--bg-dark);
+        color: var(--text-main);
+        line-height: 1.5;
+        -webkit-font-smoothing: antialiased;
+      }
+
+      a {
+        color: var(--gold);
+        text-decoration: none;
+        transition: color 0.2s;
+      }
+      a:hover,
+      a:focus {
+        color: var(--gold-hover);
+        text-decoration: none;
+      }
+
+      button {
+        font-family: inherit;
+        cursor: pointer;
+        border: none;
+        transition: all 0.2s;
+      }
+      button:focus-visible,
+      a:focus-visible {
+        outline: 2px solid var(--gold);
+        outline-offset: 2px;
+      }
+
+      .container {
+        max-width: 1280px;
+        margin: 0 auto;
+        padding: 0 1.5rem;
+      }
+      .visually-hidden {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        border: 0;
+      }
+
+      /* GLOBAL NAVIGATION */
+      header.nav {
+        position: sticky;
+        top: 0;
+        z-index: 100;
+        background: rgba(18, 18, 22, 0.85);
+        backdrop-filter: blur(12px);
+        border-bottom: 1px solid var(--border-color);
+      }
+      .nav-inner {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 1rem 1.5rem;
+        max-width: 1280px;
+        margin: 0 auto;
+      }
+      .brand {
+        font-weight: 800;
+        font-size: 1.4rem;
+        color: #fff;
+        display: flex;
+        align-items: center;
+        gap: 0.6rem;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+      }
+      .brand span {
+        color: var(--gold);
+      }
+      .brand-logo {
+        color: var(--gold);
+        font-size: 1.6rem;
+        font-weight: normal;
+      }
+      .nav-links {
+        display: flex;
+        gap: 1.75rem;
+        list-style: none;
+        padding: 0;
+        margin: 0;
+      }
+      .nav-links a {
+        color: var(--text-muted);
+        font-weight: 500;
+        font-size: 0.95rem;
+      }
+      .nav-links a:hover,
+      .nav-links a.active {
+        color: var(--gold);
+      }
+      .nav-toggle {
+        display: none;
+        background: transparent;
+        font-size: 1.5rem;
+        color: var(--text-main);
+      }
+
+      /* HERO SECTION */
+      .hero {
+        padding: 6rem 0 4rem;
+        background: radial-gradient(
+          circle at top right,
+          rgba(212, 175, 55, 0.07),
+          transparent 45%
+        );
+      }
+      .hero-grid {
+        display: grid;
+        grid-template-columns: 1.1fr 0.9fr;
+        gap: 4rem;
+        align-items: center;
+      }
+      .hero-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        border: 1px solid var(--gold);
+        background: var(--gold-glow);
+        color: var(--gold);
+        padding: 0.35rem 0.85rem;
+        border-radius: 99px;
+        font-size: 0.75rem;
+        font-weight: 700;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        margin-bottom: 1.5rem;
+      }
+      .hero h1 {
+        font-size: clamp(2.2rem, 5vw, 3.75rem);
+        line-height: 1.15;
+        margin: 0 0 1.25rem;
+        font-weight: 800;
+        color: #fff;
+      }
+      .hero h1 span {
+        color: var(--gold);
+        font-style: italic;
+        font-weight: 700;
+      }
+      .hero p.lead {
+        font-size: 1.15rem;
+        color: var(--text-muted);
+        margin: 0 0 2rem;
+        max-width: 540px;
+      }
+
+      .cta-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1rem;
+      }
+      .btn {
+        padding: 0.85rem 1.75rem;
+        border-radius: var(--radius-sm);
+        font-weight: 600;
+        font-size: 0.95rem;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        border-radius: var(--radius-sm);
+      }
+      .btn-primary {
+        background: var(--gold);
+        color: var(--text-dark);
+      }
+      .btn-primary:hover {
+        background: var(--gold-hover);
+        transform: translateY(-1px);
+      }
+      .btn-ghost {
+        background: transparent;
+        color: #fff;
+        border: 1px solid var(--border-color);
+      }
+      .btn-ghost:hover {
+        background: var(--bg-panel);
+        border-color: var(--text-muted);
+      }
+
+      .hero-card {
+        background: var(--bg-panel);
+        border-radius: var(--radius-lg);
+        border: 1px solid var(--border-color);
+        padding: 2rem;
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+      }
+      .stat-row {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1rem;
+        margin-top: 1.5rem;
+      }
+      .stat {
+        text-align: center;
+        padding: 1rem;
+        background: var(--bg-card);
+        border-radius: var(--radius-md);
+        border: 1px solid var(--border-color);
+      }
+      .stat-num {
+        font-size: 1.75rem;
+        font-weight: 700;
+        color: var(--gold);
+        display: block;
+        margin-bottom: 0.25rem;
+      }
+      .stat-label {
+        font-size: 0.7rem;
+        color: var(--text-muted);
+        text-transform: uppercase;
+        letter-spacing: 1px;
+      }
+
+      /* CONTAINER MODULE LAYOUTS */
+      section.layer {
+        padding: 5rem 0;
+        border-bottom: 1px solid var(--border-color);
+      }
+      section.layer:nth-of-type(even) {
+        background: #0e0e12;
+      }
+
+      .section-head {
+        text-align: center;
+        max-width: 650px;
+        margin: 0 auto 3.5rem;
+      }
+      .eyebrow {
+        color: var(--gold);
+        font-size: 0.75rem;
+        font-weight: 700;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        display: block;
+        margin-bottom: 0.5rem;
+      }
+      .section-head h2 {
+        font-size: clamp(1.75rem, 3.5vw, 2.5rem);
+        margin: 0 0 0.75rem;
+        color: #fff;
+        font-weight: 700;
+      }
+      .section-head p {
+        color: var(--text-muted);
+        font-size: 1.05rem;
+      }
+
+      /* CARDS INSTANCE GRID */
+      .grid {
+        display: grid;
+        gap: 1.5rem;
+      }
+      .grid-3 {
+        grid-template-columns: repeat(3, 1fr);
+      }
+      .grid-2 {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .card {
+        background: var(--bg-panel);
+        padding: 1.75rem;
+        border-radius: var(--radius-lg);
+        border: 1px solid var(--border-color);
+        transition: all 0.25s ease;
+      }
+      .card:hover {
+        transform: translateY(-4px);
+        border-color: var(--border-glow);
+        box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
+      }
+      .card-icon {
+        font-size: 1.75rem;
+        margin-bottom: 1.25rem;
+        color: var(--gold);
+        background: rgba(212, 175, 55, 0.08);
+        width: 50px;
+        height: 50px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: var(--radius-md);
+      }
+      .card h3 {
+        margin: 0 0 0.5rem;
+        font-size: 1.25rem;
+        color: #fff;
+        font-weight: 600;
+      }
+      .card p {
+        margin: 0;
+        color: var(--text-muted);
+        font-size: 0.95rem;
+        line-height: 1.6;
+      }
+
+      /* ENGINE LAYER (Booking & Calendar Logic) */
+      .booking-wrap {
+        display: grid;
+        grid-template-columns: 1.2fr 0.8fr;
+        gap: 2rem;
+      }
+
+      .form-container {
+        background: var(--bg-panel);
+        padding: 2rem;
+        border-radius: var(--radius-lg);
+        border: 1px solid var(--border-color);
+      }
+      .form-group {
+        margin-bottom: 1.25rem;
+      }
+      .form-group label {
+        display: block;
+        font-weight: 500;
+        margin-bottom: 0.5rem;
+        font-size: 0.9rem;
+        color: #fff;
+      }
+      .form-group input,
+      .form-group select {
+        width: 100%;
+        padding: 0.8rem 1rem;
+        border: 1px solid var(--border-color);
+        border-radius: var(--radius-sm);
+        font-size: 0.95rem;
+        font-family: inherit;
+        background: var(--bg-card);
+        color: #fff;
+        transition: border-color 0.2s;
+      }
+      .form-group input:focus,
+      .form-group select:focus {
+        outline: none;
+        border-color: var(--gold);
+      }
+
+      .alert {
+        padding: 1rem;
+        border-radius: var(--radius-sm);
+        margin-top: 1.25rem;
+        font-size: 0.9rem;
+        font-weight: 500;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+      .alert-error {
+        background: rgba(239, 68, 68, 0.1);
+        color: var(--error);
+        border: 1px solid rgba(239, 68, 68, 0.2);
+      }
+      .alert-success {
+        background: rgba(16, 185, 129, 0.1);
+        color: var(--success);
+        border: 1px solid rgba(16, 185, 129, 0.2);
+      }
+
+      .schedule-block {
+        background: var(--bg-panel);
+        padding: 2rem;
+        border-radius: var(--radius-lg);
+        border: 1px solid var(--border-color);
+        height: transform;
+      }
+      .schedule-header-status {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 1.25rem;
+        padding-bottom: 0.75rem;
+        border-bottom: 1px solid var(--border-color);
+      }
+      .status-pill {
+        background: rgba(16, 185, 129, 0.1);
+        color: var(--success);
+        font-size: 0.7rem;
+        font-weight: 700;
+        padding: 0.25rem 0.6rem;
+        border-radius: 99px;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+      }
+      .schedule-item {
+        padding: 0.75rem;
+        background: var(--bg-card);
+        border-radius: var(--radius-sm);
+        margin-bottom: 0.75rem;
+        border: 1px solid var(--border-color);
+        font-size: 0.9rem;
+        color: var(--text-muted);
+        display: flex;
+        justify-content: space-between;
+      }
+      .schedule-item strong {
+        color: #fff;
+        font-weight: 600;
+      }
+      .schedule-item span {
+        color: var(--error);
+        font-size: 0.85rem;
+      }
+
+      /* SOCIAL FEED SYSTEM */
+      .feed {
+        display: grid;
+        gap: 1.5rem;
+        max-width: 740px;
+        margin: 0 auto;
+      }
+      .post {
+        background: var(--bg-panel);
+        border-radius: var(--radius-lg);
+        padding: 1.75rem;
+        border: 1px solid var(--border-color);
+      }
+      .post-head {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 1rem;
+      }
+      .user-profile {
+        display: flex;
+        align-items: center;
+        gap: 0.85rem;
+      }
+      .avatar {
+        width: 44px;
+        height: 44px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, var(--border-glow), var(--bg-card));
+        border: 1px solid var(--border-color);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--gold);
+        font-weight: 700;
+        font-size: 1.1rem;
+      }
+      .post-meta strong {
+        display: block;
+        color: #fff;
+        font-size: 0.95rem;
+      }
+      .post-meta small {
+        color: var(--text-muted);
+        font-size: 0.8rem;
+      }
+
+      .badge {
+        display: inline-block;
+        font-size: 0.65rem;
+        padding: 0.15rem 0.5rem;
+        border-radius: 99px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        margin-left: 0.35rem;
+        vertical-align: middle;
+      }
+      .badge.master {
+        background: rgba(212, 175, 55, 0.15);
+        color: var(--gold);
+        border: 1px solid rgba(212, 175, 55, 0.3);
+      }
+      .badge.rising {
+        background: rgba(16, 185, 129, 0.15);
+        color: var(--success);
+        border: 1px solid rgba(16, 185, 129, 0.3);
+      }
+
+      .post-caption {
+        color: var(--text-main);
+        font-size: 1rem;
+        margin: 0.75rem 0 1rem;
+      }
+
+      .ba-images {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 0.75rem;
+        margin: 1rem 0;
+      }
+      .ba-img {
+        aspect-ratio: 4/3;
+        border-radius: var(--radius-md);
+        position: relative;
+        background: var(--bg-card);
+        border: 1px solid var(--border-color);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--text-muted);
+        font-weight: 600;
+        font-size: 0.8rem;
+        letter-spacing: 1px;
+        overflow: hidden;
+      }
+      .ba-img::before {
+        position: absolute;
+        bottom: 8px;
+        left: 8px;
+        background: rgba(0, 0, 0, 0.6);
+        padding: 0.2rem 0.5rem;
+        border-radius: 4px;
+        font-size: 0.7rem;
+        color: #fff;
+      }
+      .ba-img.before::before {
+        content: "BEFORE";
+      }
+      .ba-img.after::before {
+        content: "AFTER";
+        background: rgba(212, 175, 55, 0.85);
+        color: var(--text-dark);
+        font-weight: 700;
+      }
+
+      .post-actions {
+        display: flex;
+        gap: 1.5rem;
+        padding-top: 1rem;
+        border-top: 1px solid var(--border-color);
+      }
+      .post-actions button {
+        background: transparent;
+        color: var(--text-muted);
+        font-size: 0.85rem;
+        display: flex;
+        align-items: center;
+        gap: 0.4rem;
+        padding: 0.25rem 0.5rem;
+      }
+      .post-actions button:hover {
+        color: #fff;
+      }
+      .post-actions button.liked {
+        color: var(--gold);
+        font-weight: 600;
+      }
+
+      /* PREDICTIVE INSIGHTS WIDGETS */
+      .insight {
+        display: flex;
+        gap: 1.25rem;
+        padding: 1.25rem;
+        background: var(--bg-card);
+        border-radius: var(--radius-md);
+        border: 1px solid var(--border-color);
+        margin-top: 1rem;
+        position: relative;
+        overflow: hidden;
+      }
+      .insight::before {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 0;
+        bottom: 0;
+        width: 4px;
+        background: var(--gold);
+      }
+      .insight-icon {
+        font-size: 1.5rem;
+        line-height: 1;
+      }
+      .insight strong {
+        color: #fff;
+        display: block;
+        margin-bottom: 0.25rem;
+        font-size: 0.95rem;
+      }
+      .insight small {
+        color: var(--text-muted);
+        font-size: 0.85rem;
+        line-height: 1.5;
+        display: block;
+      }
+
+      /* EXECUTIVE DIRECTOR PORTAL */
+      .metrics-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 1.25rem;
+      }
+      .metric-card {
+        background: var(--bg-panel);
+        padding: 1.5rem;
+        border-radius: var(--radius-lg);
+        border: 1px solid var(--border-color);
+      }
+      .metric-card .label {
+        font-size: 0.7rem;
+        text-transform: uppercase;
+        color: var(--text-muted);
+        letter-spacing: 1px;
+        font-weight: 600;
+      }
+      .metric-card .value {
+        font-size: 2.25rem;
+        font-weight: 700;
+        color: #fff;
+        display: block;
+        margin: 0.25rem 0;
+      }
+      .metric-card .delta {
+        font-size: 0.8rem;
+        color: var(--success);
+        font-weight: 600;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.25rem;
+      }
+      .metric-card .delta.compliant {
+        color: var(--gold);
+      }
+
+      .chart-card {
+        background: var(--bg-panel);
+        border-radius: var(--radius-lg);
+        border: 1px solid var(--border-color);
+        padding: 2rem;
+      }
+      .bar-chart {
+        display: flex;
+        align-items: flex-end;
+        gap: 1rem;
+        height: 180px;
+        padding: 1.5rem 0 0.5rem;
+        margin-top: 1rem;
+      }
+      .bar-wrapper {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        height: 100%;
+        justify-content: flex-end;
+        gap: 0.5rem;
+      }
+      .bar {
+        width: 100%;
+        background: linear-gradient(180deg, var(--gold-hover), var(--gold));
+        border-radius: 4px 4px 0 0;
+        position: relative;
+        min-height: 4px;
+        transition: height 1s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+      .bar-label {
+        font-size: 0.75rem;
+        color: var(--text-muted);
+        text-transform: uppercase;
+      }
+
+      /* SYSTEM FOOTER */
+      footer {
+        background: var(--bg-panel);
+        color: var(--text-muted);
+        padding: 4rem 0 2rem;
+        border-top: 1px solid var(--border-color);
+        font-size: 0.9rem;
+      }
+      .footer-grid {
+        display: grid;
+        grid-template-columns: 1.4fr 0.8fr 0.8fr;
+        gap: 3rem;
+        margin-bottom: 3rem;
+      }
+      footer h4 {
+        color: #fff;
+        margin: 0 0 1rem;
+        font-size: 1.05rem;
+        font-weight: 600;
+        letter-spacing: 0.5px;
+      }
+      footer ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+      }
+      footer ul li {
+        margin-bottom: 0.6rem;
+      }
+      footer a {
+        color: var(--text-muted);
+      }
+      footer a:hover {
+        color: var(--gold);
+      }
+
+      .footer-bottom {
+        border-top: 1px solid var(--border-color);
+        padding-top: 1.5rem;
+        text-align: center;
+        font-size: 0.8rem;
+        color: #6b7280;
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 1rem;
+      }
+
+      /* RESPONSIVE LAYOUT TRANSLATIONS */
+      @media (max-width: 960px) {
+        .hero-grid,
+        .booking-wrap,
+        .grid-3,
+        .grid-2,
+        .footer-grid {
+          grid-template-columns: 1fr;
+        }
+        .metrics-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+        .hero {
+          padding: 4rem 0 2rem;
+        }
+        .hero-grid {
+          gap: 2.5rem;
+        }
+        .nav-links {
+          display: none;
+        }
+        .nav-links.open {
+          display: flex;
+          flex-direction: column;
+          position: absolute;
+          top: 100%;
+          left: 0;
+          right: 0;
+          background: var(--bg-panel);
+          padding: 1.5rem;
+          border-bottom: 1px solid var(--border-color);
+          gap: 1.25rem;
+          box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+        }
+        .nav-toggle {
+          display: block;
+        }
+        .footer-bottom {
+          justify-content: center;
+          text-align: center;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .stat-row,
+        .metrics-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <a href="#main" class="visually-hidden">Skip to main content</a>
+
+    <header class="nav" role="banner">
+      <div class="nav-inner">
+        <a href="#" class="brand" aria-label="GroomHub home">
+          <span class="brand-logo">✂</span> Groom<span>Hub</span>
+        </a>
+        <button
+          class="nav-toggle"
+          aria-label="Toggle navigation"
+          aria-expanded="false"
+          aria-controls="primary-nav"
+        >
+          ☰
+        </button>
+        <ul class="nav-links" id="primary-nav">
+          <li><a href="#layers" class="active">Dashboard</a></li>
+          <li><a href="#booking">Bookings</a></li>
+          <li><a href="#calendar">Calendar</a></li>
+          <li><a href="#feed">Lookbook</a></li>
+          <li><a href="#director">Analytics</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </div>
+    </header>
+
+    <main id="main">
+      <section class="hero">
+        <div class="container hero-grid">
+          <div>
+            <div class="hero-badge">System Core Architecture</div>
+            <h1>Where Student Hustle Meets <span>Structure.</span></h1>
+            <p class="lead">
+              An interconnected, multi-layered digital platform built for campus
+              entrepreneurs to run operational brands safely alongside strict
+              academic timetables.
+            </p>
+            <div class="cta-row">
+              <a href="#booking" class="btn btn-primary">Book a Service</a>
+              <a href="#layers" class="btn btn-ghost"
+                >Explore System Architecture</a
+              >
+            </div>
+          </div>
+          <div class="hero-card" aria-label="Platform live telemetry metrics">
+            <h3 style="margin: 0 0 0.25rem; color: #fff">
+              Live Ecosystem Snapshot
+            </h3>
+            <p style="margin: 0; color: var(--text-muted); font-size: 0.85rem">
+              Cohort performance telemetry metrics
+            </p>
+            <div class="stat-row">
+              <div class="stat">
+                <span class="stat-num">432</span
+                ><span class="stat-label">Bookings</span>
+              </div>
+              <div class="stat">
+                <span class="stat-num">28</span
+                ><span class="stat-label">Stylists</span>
+              </div>
+              <div class="stat">
+                <span class="stat-num">100%</span
+                ><span class="stat-label">Conflict-Free</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="layer" id="layers">
+        <div class="container">
+          <div class="section-head">
+            <span class="eyebrow">Architecture Matrix</span>
+            <h2>Platform Layer Configurations</h2>
+            <p>
+              Five independent system models mapped seamlessly to secure
+              operational health, student visibility, and structural scaling
+              parameters.
+            </p>
+          </div>
+          <div class="grid grid-3">
+            <article class="card">
+              <div class="card-icon" aria-hidden="true">📚</div>
+              <h3>Academic Integrity</h3>
+              <p>
+                Automated programmatic rule layers tracking institutional
+                constraints. Enforces an absolute cross-checking lock strategy
+                against schedule interference.
+              </p>
+            </article>
+            <article class="card">
+              <div class="card-icon" aria-hidden="true">✨</div>
+              <h3>Personal Ledger</h3>
+              <p>
+                A personal operations suite containing style lookbooks, custom
+                workflow asset cards, and profile builders to build execution
+                habits.
+              </p>
+            </article>
+            <article class="card">
+              <div class="card-icon" aria-hidden="true">💬</div>
+              <h3>Social Graph</h3>
+              <p>
+                Peer confirmation feed layouts using explicit transformations,
+                verified review data blocks, and merit badges to cultivate
+                trusted reach.
+              </p>
+            </article>
+            <article class="card">
+              <div class="card-icon" aria-hidden="true">🧠</div>
+              <h3>Predictive Layer</h3>
+              <p>
+                An intelligence parser evaluating client retention patterns to
+                output smart dynamic booking updates and optimize calendar
+                loads.
+              </p>
+            </article>
+            <article class="card">
+              <div class="card-icon" aria-hidden="true">📊</div>
+              <h3>Director Portal</h3>
+              <p>
+                An executive data dashboard visualizing macro-level performance
+                metrics, system compliance rates, and total cohort business
+                scale details.
+              </p>
+            </article>
+            <article class="card">
+              <div class="card-icon" aria-hidden="true">♿</div>
+              <h3>POUR Compliance</h3>
+              <p>
+                Fully aligned to standard WCAG accessibility design models using
+                semantic landmarks, contrast logic checks, and structured hotkey
+                access paths.
+              </p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="layer" id="booking">
+        <div class="container">
+          <div class="section-head">
+            <span class="eyebrow">Core Instance Matrix</span>
+            <h2>Constraint Testing Interface</h2>
+            <p>
+              Test the structural cross-check rule directly. Selecting hours
+              that intersect live institutional class blocks causes an automatic
+              lock event.
+            </p>
+          </div>
+          <div class="booking-wrap">
+            <div class="form-container">
+              <form id="booking-form" novalidate>
+                <div class="form-group">
+                  <label for="b-name">Student Account Name</label>
+                  <input
+                    type="text"
+                    id="b-name"
+                    placeholder="Enter account name"
+                    required
+                    autocomplete="name"
+                  />
+                </div>
+                <div class="form-group">
+                  <label for="b-service">Operational Service Profile</label>
+                  <select id="b-service" required>
+                    <option value="">Choose service configuration...</option>
+                    <option value="braids">Box Braids — R200</option>
+                    <option value="fade">Fade Cut — R120</option>
+                    <option value="lineup">Line Up — R60</option>
+                    <option value="trim">Beard Trim — R80</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label for="b-day">Target Business Day</label>
+                  <select id="b-day" required>
+                    <option value="">Select calendar window...</option>
+                    <option>Monday</option>
+                    <option>Tuesday</option>
+                    <option>Wednesday</option>
+                    <option>Thursday</option>
+                    <option>Friday</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label for="b-time">Operational Time Block</label>
+                  <input type="time" id="b-time" required />
+                </div>
+                <button
+                  type="submit"
+                  class="btn btn-primary"
+                  style="
+                    width: 100%;
+                    justify-content: center;
+                    margin-top: 0.5rem;
+                  "
+                >
+                  Process Transaction Instance
+                </button>
+                <div id="booking-alert" role="status" aria-live="polite"></div>
+
+                <div class="card" style="margin-top: 20px">
+                  <h3>Booking Receipt</h3>
+
+                  <div class="schedule-item">
+                    <strong>Service</strong>
+                    <span id="receipt-service">Not Selected</span>
+                  </div>
+
+                  <div class="schedule-item">
+                    <strong>Day</strong>
+                    <span id="receipt-day">Not Selected</span>
+                  </div>
+
+                  <div class="schedule-item">
+                    <strong>Time</strong>
+                    <span id="receipt-time">Not Selected</span>
+                  </div>
+                </div>
+              </form>
+            </div>
+
+            <aside
+              class="schedule-block"
+              aria-label="Academic constraint log bindings"
+            >
+              <div class="schedule-header-status">
+                <h3
+                  style="
+                    margin: 0;
+                    color: #fff;
+                    font-size: 1.1rem;
+                    font-weight: 600;
+                  "
+                >
+                  Active Class Windows
+                </h3>
+                <span class="status-pill">Enforcement On</span>
+              </div>
+              <p
+                style="
+                  margin: 0 0 1.25rem;
+                  font-size: 0.85rem;
+                  color: var(--text-muted);
+                "
+              >
+                The scheduling engine scans these records to enforce total
+                priority structure maps.
+              </p>
+              <div class="schedule-item">
+                <strong>Monday</strong> <span>09:00 – 11:00</span>
+              </div>
+              <div class="schedule-item">
+                <strong>Tuesday</strong> <span>13:00 – 15:00</span>
+              </div>
+              <div class="schedule-item">
+                <strong>Wednesday</strong> <span>10:00 – 12:00</span>
+              </div>
+              <div class="schedule-item">
+                <strong>Thursday</strong> <span>14:00 – 16:00</span>
+              </div>
+              <div class="schedule-item">
+                <strong>Friday</strong> <span>09:00 – 11:00</span>
+              </div>
+            </aside>
+          </div>
+        </div>
+      </section>
+
+      <section class="layer" id="calendar">
+        <div class="container">
+          <div class="section-head">
+            <span class="eyebrow">Scheduling Hub</span>
+            <h2>Academic Calendar</h2>
+            <p>
+              View important dates and availability while keeping bookings
+              conflict-free.
+            </p>
+          </div>
+
+          <div class="card">
+            <iframe
+              src="https://calendar.google.com/calendar/embed?src=en.za%23holiday%40group.v.calendar.google.com&ctz=Africa%2FJohannesburg"
+              style="border: 0; width: 100%; height: 600px; border-radius: 12px"
+              loading="lazy"
+            ></iframe>
+          </div>
+        </div>
+      </section>
+
+      <section class="layer" id="feed">
+        <div class="container">
+          <div class="section-head">
+            <span class="eyebrow">Social Asset Validation</span>
+            <h2>Verified Transformation Feed</h2>
+            <p>
+              Real-time lookbook assets created across the community ecosystem,
+              tracking style details and student rankings.
+            </p>
+          </div>
+          <div class="feed" id="feed-list"></div>
+        </div>
+      </section>
+
+      <section class="layer" id="intelligence">
+        <div class="container">
+          <div class="section-head">
+            <span class="eyebrow">Analytical Models</span>
+            <h2>Predictive Insight Engine</h2>
+            <p>
+              System metrics parsed from structural interaction parameters to
+              update both consumer timelines and provider capacities.
+            </p>
+          </div>
+          <div class="grid grid-2">
+            <div class="card">
+              <h3>Consumer Routine Parsing</h3>
+              <div class="insight">
+                <span class="insight-icon" aria-hidden="true">💡</span>
+                <div>
+                  <strong>Cycle Window Re-booking Notification</strong>
+                  <small
+                    >Client timeline tracking logs show a standard 6-week
+                    recurrence window behavior. Suggested optimization point:
+                    <strong>22 June</strong>.</small
+                  >
+                </div>
+              </div>
+            </div>
+            <div class="card">
+              <h3>Capacity Performance Mapping</h3>
+              <div class="insight">
+                <span class="insight-icon" aria-hidden="true">📈</span>
+                <div>
+                  <strong>Peak Session Spike Optimization</strong>
+                  <small
+                    >Transaction request density records suggest a 240% volume
+                    expansion on Fridays from 16:00–19:00. Resource scaling is
+                    recommended.</small
+                  >
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="layer" id="director">
+        <div class="container">
+          <div class="section-head">
+            <span class="eyebrow">Management Portal</span>
+            <h2>Program Director Dashboard</h2>
+            <p>
+              Aggregated validation dashboards measuring performance health
+              vectors across the localized structural student database.
+            </p>
+          </div>
+          <div class="metrics-grid" style="margin-bottom: 2rem">
+            <div class="metric-card">
+              <span class="label">Active Student Brands</span>
+              <span class="value">28</span>
+              <span class="delta">▲ 8% vs baseline</span>
+            </div>
+            <div class="metric-card">
+              <span class="label">Processed Bookings</span>
+              <span class="value">432</span>
+              <span class="delta">▲ 18% vs baseline</span>
+            </div>
+            <div class="metric-card">
+              <span class="label">Timetable Conflict Rate</span>
+              <span class="value">0%</span>
+              <span class="delta compliant">Absolute Compliance</span>
+            </div>
+            <div class="metric-card">
+              <span class="label">Average Rating Scale</span>
+              <span class="value">4.8</span>
+              <span class="delta">▲ 0.2 adjustment</span>
+            </div>
+          </div>
+          <div class="chart-card">
+            <h3 style="margin: 0; font-size: 1.1rem; font-weight: 600">
+              System Transaction Volume Distribution
+            </h3>
+            <div
+              class="bar-chart"
+              role="img"
+              aria-label="Graph plotting weekly structural load counts"
+            >
+              <div class="bar-wrapper">
+                <div class="bar" style="height: 40%"></div>
+                <span class="bar-label">Mon</span>
+              </div>
+              <div class="bar-wrapper">
+                <div class="bar" style="height: 55%"></div>
+                <span class="bar-label">Tue</span>
+              </div>
+              <div class="bar-wrapper">
+                <div class="bar" style="height: 70%"></div>
+                <span class="bar-label">Wed</span>
+              </div>
+              <div class="bar-wrapper">
+                <div class="bar" style="height: 85%"></div>
+                <span class="bar-label">Thu</span>
+              </div>
+              <div class="bar-wrapper">
+                <div class="bar" style="height: 100%"></div>
+                <span class="bar-label">Fri</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer id="contact">
+      <div class="container">
+        <div class="footer-grid">
+          <div>
+            <h4>✂ GroomHub Architecture</h4>
+            <p
+              style="
+                margin: 0.5rem 0 1.5rem;
+                line-height: 1.6;
+                color: var(--text-muted);
+              "
+            >
+              A multi-layered production configuration designed to maximize peer
+              commerce engagement while locking academic priority structures
+              down systematically.
+            </p>
+            <p style="font-size: 0.8rem; color: #52525b; margin: 0">
+              System Lead: K. Clement Seiphehlo · ST10440562
+            </p>
+          </div>
+          <div>
+            <h4>Secure Integrations</h4>
+            <ul>
+              <li>
+                📱 Interface Link:
+                <a href="https://wa.me/27717590255">071 759 0255</a>
+              </li>
+              <li>
+                ✉️ System SMTP:
+                <a href="mailto:st10440562@rcconnect.edu.za"
+                  >st10440562@rcconnect.edu.za</a
+                >
+              </li>
+            </ul>
+          </div>
+          <div>
+            <h4>System Indexes</h4>
+            <ul>
+              <li><a href="#layers">Ecosystem Config</a></li>
+              <li><a href="#booking">Testing Sandbox</a></li>
+              <li><a href="#feed">Lookbook Registry</a></li>
+              <li><a href="#director">Executive Portal</a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="footer-bottom">
+          <div>
+            © <span id="year"></span> GroomHub Framework · All Engine
+            Configurations Reserved.
+          </div>
+          <div style="color: var(--gold)">
+            WCAG 2.1 AA Compliant Platform Model
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <script>
+      // ============ NAVIGATION MATRIX CONTROLLER ============
+      const navToggle = document.querySelector(".nav-toggle");
+      const navLinks = document.querySelector(".nav-links");
+
+      navToggle.addEventListener("click", () => {
+        const open = navLinks.classList.toggle("open");
+        navToggle.setAttribute("aria-expanded", open);
+        navToggle.textContent = open ? "✕" : "☰";
+      });
+
+      navLinks.querySelectorAll("a").forEach((link) =>
+        link.addEventListener("click", () => {
+          navLinks.classList.remove("open");
+          navToggle.setAttribute("aria-expanded", "false");
+          navToggle.textContent = "☰";
+        })
+      );
+
+      // ============ ENGINE LAYER RULE CALCULATOR (Academic Constraints) ============
+      const lectures = {
+        Monday: [
+          { start: "09:00", end: "11:00", track: "Marketing Frameworks" },
+        ],
+        Tuesday: [
+          { start: "13:00", end: "15:00", track: "Business Ethics Analysis" },
+        ],
+        Wednesday: [
+          { start: "10:00", end: "12:00", track: "Entrepreneurial Logistics" },
+        ],
+        Thursday: [
+          { start: "14:00", end: "16:00", track: "Corporate Finance 101" },
+        ],
+        Friday: [
+          { start: "09:00", end: "11:00", track: "Operations System Logic" },
+        ],
+      };
+
+      const parseToMinutes = (timeString) => {
+        const [hours, minutes] = timeString.split(":").map(Number);
+        return hours * 60 + minutes;
+      };
+
+      const evaluateScheduleConflict = (day, targetTime) => {
+        const dailyBlocks = lectures[day] || [];
+        const targetedMinutes = parseToMinutes(targetTime);
+        return dailyBlocks.find(
+          (block) =>
+            targetedMinutes >= parseToMinutes(block.start) &&
+            targetedMinutes < parseToMinutes(block.end)
+        );
+      };
+
+      const bookingForm = document.getElementById("booking-form");
+      const feedbackAlert = document.getElementById("booking-alert");
+
+      bookingForm.addEventListener("submit", (event) => {
+        event.preventDefault();
+        const clientName = document.getElementById("b-name").value.trim();
+        const serviceType = document.getElementById("b-service").value;
+        const selectedDay = document.getElementById("b-day").value;
+        const selectedTime = document.getElementById("b-time").value;
+
+        feedbackAlert.className = "";
+        feedbackAlert.textContent = "";
+
+        if (!clientName || !serviceType || !selectedDay || !selectedTime) {
+          feedbackAlert.className = "alert alert-error";
+          feedbackAlert.textContent =
+            "⚠ Process Failure: Empty form fields detected inside transaction context.";
+          return;
+        }
+
+        const collisionRecord = evaluateScheduleConflict(
+          selectedDay,
+          selectedTime
+        );
+        if (collisionRecord) {
+          feedbackAlert.className = "alert alert-error";
+          feedbackAlert.textContent = `🚫 Transaction Aborted: High-priority class conflict detected (${collisionRecord.track} [${collisionRecord.start}–${collisionRecord.end}]). Academic integrity rules enforced.`;
+          return;
+        }
+
+        // Update booking receipt
+        document.getElementById("receipt-service").textContent = serviceType;
+        document.getElementById("receipt-day").textContent = selectedDay;
+        document.getElementById("receipt-time").textContent = selectedTime;
+
+        feedbackAlert.className = "alert alert-success";
+        feedbackAlert.textContent = `✅ Transaction Authorized: Booking successfully bound for ${clientName} (${serviceType}) on ${selectedDay} at ${selectedTime}. Data synchronization complete.`;
+        bookingForm.reset();
+      });
+
+      // ============ VERIFIED FEED SIMULATION ARRAY ============
+      const lookbookDataset = [
+        {
+          id: 1,
+          practitioner: "Lwazi M.",
+          portfolio: "Fade Cut",
+          tier: "master",
+          summary:
+            "Precision fade transformation completed. System cross-check validated: Zero lecture disruptions.",
+          positiveMetrics: 124,
+          conversationalMetrics: 18,
+          age: "2h ago",
+        },
+        {
+          id: 2,
+          practitioner: "Anele B.",
+          portfolio: "Box Braids",
+          tier: "rising",
+          summary:
+            "Protective braids layout processed for end-of-week style requirements.",
+          positiveMetrics: 98,
+          conversationalMetrics: 12,
+          age: "5h ago",
+        },
+        {
+          id: 3,
+          practitioner: "Sipho K.",
+          portfolio: "Beard Trim",
+          tier: "master",
+          summary:
+            "Sharp line contours and custom shape balance configuration executed correctly.",
+          positiveMetrics: 215,
+          conversationalMetrics: 34,
+          age: "1d ago",
+        },
+      ];
+
+      const targetFeedContainer = document.getElementById("feed-list");
+
+      const generateLookbookFeed = () => {
+        targetFeedContainer.innerHTML = lookbookDataset
+          .map(
+            (item) => `
+      <article class="post" data-id="${item.id}">
+        <header class="post-head">
+          <div class="user-profile">
+            <div class="avatar" aria-hidden="true">${item.practitioner.charAt(
+              0
+            )}</div>
+            <div class="post-meta">
+              <strong>${item.practitioner}
+                <span class="badge ${item.tier}">${
+              item.tier === "master" ? "Fade Specialist" : "Rising Talent"
+            }</span>
+              </strong>
+              <small>${item.portfolio} · ${item.age}</small>
+            </div>
+          </div>
+        </header>
+        <p class="post-caption">${item.summary}</p>
+        <div class="ba-images">
+          <div class="ba-img before" aria-label="Before modification state asset">ASSET STENCIL: BEFORE</div>
+          <div class="ba-img after" aria-label="After transformation state asset">ASSET STENCIL: AFTER</div>
+        </div>
+        <div class="post-actions">
+          <button class="like-btn" data-id="${
+            item.id
+          }" aria-label="Affirm transactional asset validation score">
+            ♥ <span class="count">${item.positiveMetrics}</span>
+          </button>
+          <button aria-label="View asset review details">💬 ${
+            item.conversationalMetrics
+          }</button>
+          <button aria-label="Forward platform transformation log">↗ Export Log</button>
+        </div>
+      </article>
+    `
+          )
+          .join("");
+
+        targetFeedContainer.querySelectorAll(".like-btn").forEach((btn) => {
+          btn.addEventListener("click", () => {
+            const matchingId = Number(btn.dataset.id);
+            const dataTarget = lookbookDataset.find((x) => x.id === matchingId);
+            const structureActive = btn.classList.toggle("liked");
+            dataTarget.positiveMetrics += structureActive ? 1 : -1;
+            btn.querySelector(".count").textContent =
+              dataTarget.positiveMetrics;
+          });
+        });
+      };
+
+      generateLookbookFeed();
+
+      // ============ FOOTER RUNTIME CONTEXT ============
+      document.getElementById("year").textContent = new Date().getFullYear();
+    </script>
+  </body>
+</html>
