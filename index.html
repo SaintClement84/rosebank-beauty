@@ -273,6 +273,21 @@
         background: #0e0e12;
       }
 
+      /* AUTH UI */
+      .nav-links a#auth-link {
+        white-space: nowrap;
+      }
+      .auth-panel {
+        max-width: 650px;
+        margin: 0 auto;
+      }
+      .auth-note {
+        color: var(--text-muted);
+        font-size: 0.95rem;
+        margin: 0 0 1.25rem;
+        text-align: center;
+      }
+
       .section-head {
         text-align: center;
         max-width: 650px;
@@ -813,6 +828,12 @@
         <a href="#" class="brand" aria-label="GroomHub home">
           <span class="brand-logo">✂</span> Groom<span>Hub</span>
         </a>
+        <span
+          id="active-user-tag"
+          class="badge master"
+          style="display: none; align-self: center"
+          >Active</span
+        >
         <button
           class="nav-toggle"
           aria-label="Toggle navigation"
@@ -827,6 +848,7 @@
           <li><a href="#calendar">Calendar</a></li>
           <li><a href="#feed">Lookbook</a></li>
           <li><a href="#director">Analytics</a></li>
+          <li><a href="#auth" id="auth-link">Register</a></li>
           <li><a href="#contact">Contact</a></li>
         </ul>
       </div>
@@ -1153,6 +1175,118 @@
         </div>
       </section>
 
+      <section class="layer" id="auth">
+        <div class="container auth-panel">
+          <div class="section-head">
+            <span class="eyebrow">Access Control</span>
+            <h2>Register / Log In</h2>
+            <p class="auth-note">
+              Frontend-only demo auth. Data is stored in your browser.
+            </p>
+          </div>
+
+          <div class="grid grid-2" style="align-items: start">
+            <div class="card" style="background: var(--bg-panel)">
+              <h3>Register</h3>
+              <form id="register-form" novalidate>
+                <div class="form-group">
+                  <label for="r-name">Name</label>
+                  <input
+                    type="text"
+                    id="r-name"
+                    placeholder="Enter your name"
+                    required
+                    autocomplete="name"
+                  />
+                </div>
+                <div class="form-group">
+                  <label for="r-email">Email</label>
+                  <input
+                    type="email"
+                    id="r-email"
+                    placeholder="Enter your email"
+                    required
+                    autocomplete="email"
+                  />
+                </div>
+                <div class="form-group">
+                  <label for="r-password">Password</label>
+                  <input
+                    type="password"
+                    id="r-password"
+                    placeholder="Create a password"
+                    required
+                    autocomplete="new-password"
+                  />
+                </div>
+                <button
+                  type="submit"
+                  class="btn btn-primary"
+                  style="width: 100%; justify-content: center"
+                >
+                  Create Account
+                </button>
+                <div
+                  id="register-alert"
+                  class="alert"
+                  role="status"
+                  aria-live="polite"
+                ></div>
+              </form>
+            </div>
+
+            <div class="card" style="background: var(--bg-panel)">
+              <h3>Log In</h3>
+              <form id="login-form" novalidate>
+                <div class="form-group">
+                  <label for="l-email">Email</label>
+                  <input
+                    type="email"
+                    id="l-email"
+                    placeholder="Enter your email"
+                    required
+                    autocomplete="email"
+                  />
+                </div>
+                <div class="form-group">
+                  <label for="l-password">Password</label>
+                  <input
+                    type="password"
+                    id="l-password"
+                    placeholder="Enter your password"
+                    required
+                    autocomplete="current-password"
+                  />
+                </div>
+                <button
+                  type="submit"
+                  class="btn btn-primary"
+                  style="width: 100%; justify-content: center"
+                >
+                  Log In
+                </button>
+                <div
+                  id="login-alert"
+                  class="alert"
+                  role="status"
+                  aria-live="polite"
+                ></div>
+              </form>
+
+              <div
+                style="
+                  margin-top: 1.25rem;
+                  color: var(--text-muted);
+                  font-size: 0.9rem;
+                "
+              >
+                Logged-in actions update the “Active” tag under the logo.
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       <section class="layer" id="director">
         <div class="container">
           <div class="section-head">
@@ -1295,6 +1429,175 @@
           navToggle.textContent = "☰";
         })
       );
+
+      // ============ AUTH (Frontend-only demo) ============
+      const AUTH_STORAGE_KEY = "groomhub.users.v1";
+      const AUTH_SESSION_KEY = "groomhub.session.v1";
+
+      const safeJsonParse = (value, fallback) => {
+        try {
+          return JSON.parse(value);
+        } catch {
+          return fallback;
+        }
+      };
+
+      const getUsers = () => {
+        const raw = localStorage.getItem(AUTH_STORAGE_KEY);
+        return safeJsonParse(raw, []);
+      };
+
+      const setUsers = (users) => {
+        localStorage.setItem(AUTH_STORAGE_KEY, JSON.stringify(users));
+      };
+
+      const getSession = () => {
+        const raw = localStorage.getItem(AUTH_SESSION_KEY);
+        return safeJsonParse(raw, null);
+      };
+
+      const setSession = (session) => {
+        if (!session) {
+          localStorage.removeItem(AUTH_SESSION_KEY);
+        } else {
+          localStorage.setItem(AUTH_SESSION_KEY, JSON.stringify(session));
+        }
+      };
+
+      const activeUserTag = document.getElementById("active-user-tag");
+      const authLink = document.getElementById("auth-link");
+
+      const renderAuthUI = () => {
+        const session = getSession();
+        if (!session) {
+          if (activeUserTag) {
+            activeUserTag.style.display = "none";
+            activeUserTag.textContent = "Active";
+          }
+          if (authLink) authLink.textContent = "Register";
+          return;
+        }
+
+        if (activeUserTag) {
+          activeUserTag.style.display = "inline-flex";
+          activeUserTag.textContent = session.name ? session.name : "Active";
+          activeUserTag.classList.remove("master");
+          activeUserTag.classList.add("rising");
+        }
+
+        if (authLink) authLink.textContent = "Log out";
+      };
+
+      const lockAuthLinkToSection = () => {
+        // If logged out: go to #auth. If logged in: treat as logout (no section change).
+        if (!authLink) return;
+        const session = getSession();
+        if (session) {
+          authLink.addEventListener(
+            "click",
+            (e) => {
+              e.preventDefault();
+              setSession(null);
+              renderAuthUI();
+            },
+            { once: true }
+          );
+          authLink.setAttribute("href", "#auth");
+        } else {
+          authLink.setAttribute("href", "#auth");
+        }
+      };
+
+      const registerForm = document.getElementById("register-form");
+      const registerAlert = document.getElementById("register-alert");
+
+      if (registerForm) {
+        registerForm.addEventListener("submit", (e) => {
+          e.preventDefault();
+          registerAlert.className = "";
+          registerAlert.textContent = "";
+
+          const name = document.getElementById("r-name").value.trim();
+          const email = document
+            .getElementById("r-email")
+            .value.trim()
+            .toLowerCase();
+          const password = document.getElementById("r-password").value;
+
+          if (!name || !email || !password) {
+            registerAlert.className = "alert alert-error";
+            registerAlert.textContent = "⚠ Please fill in all fields.";
+            return;
+          }
+
+          const users = getUsers();
+          const existing = users.find((u) => u.email === email);
+          if (existing) {
+            registerAlert.className = "alert alert-error";
+            registerAlert.textContent =
+              "⚠ Account already exists for that email.";
+            return;
+          }
+
+          users.push({ name, email, password });
+          setUsers(users);
+
+          setSession({ name, email });
+          renderAuthUI();
+          lockAuthLinkToSection();
+
+          registerAlert.className = "alert alert-success";
+          registerAlert.textContent =
+            "✅ Account created. You are now logged in.";
+          registerForm.reset();
+        });
+      }
+
+      const loginForm = document.getElementById("login-form");
+      const loginAlert = document.getElementById("login-alert");
+
+      if (loginForm) {
+        loginForm.addEventListener("submit", (e) => {
+          e.preventDefault();
+          loginAlert.className = "";
+          loginAlert.textContent = "";
+
+          const email = document
+            .getElementById("l-email")
+            .value.trim()
+            .toLowerCase();
+          const password = document.getElementById("l-password").value;
+
+          if (!email || !password) {
+            loginAlert.className = "alert alert-error";
+            loginAlert.textContent = "⚠ Please enter your email and password.";
+            return;
+          }
+
+          const users = getUsers();
+          const user = users.find(
+            (u) => u.email === email && u.password === password
+          );
+
+          if (!user) {
+            loginAlert.className = "alert alert-error";
+            loginAlert.textContent = "🚫 Login failed. Invalid credentials.";
+            return;
+          }
+
+          setSession({ name: user.name, email: user.email });
+          renderAuthUI();
+          lockAuthLinkToSection();
+
+          loginAlert.className = "alert alert-success";
+          loginAlert.textContent = `✅ Welcome back, ${user.name}!`;
+          loginForm.reset();
+        });
+      }
+
+      // Initial render
+      renderAuthUI();
+      lockAuthLinkToSection();
 
       // ============ ENGINE LAYER RULE CALCULATOR (Academic Constraints) ============
       const lectures = {
