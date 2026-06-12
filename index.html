@@ -8,6 +8,13 @@
       content="GroomHub — Student Entrepreneurship Ecosystem"
     />
     <title>GroomHub | Student Entrepreneurship Ecosystem</title>
+    <meta name="referrer" content="no-referrer" />
+    <meta http-equiv="X-Content-Type-Options" content="nosniff" />
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self'; base-uri 'self'; object-src 'none'; frame-ancestors 'none'; img-src 'self' data:; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline'; connect-src 'self'; form-action 'self'; upgrade-insecure-requests"
+    />
+
     <style>
       :root {
         --bg-dark: #0a0a0c;
@@ -156,6 +163,26 @@
           rgba(212, 175, 55, 0.07),
           transparent 45%
         );
+      }
+
+      .hero-card img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border-radius: 16px;
+        display: block;
+      }
+
+      .card-image {
+        margin: -1.75rem -1.75rem 1rem;
+      }
+
+      .card-image img {
+        width: 100%;
+        height: 180px;
+        object-fit: cover;
+        border-radius: 16px 16px 0 0;
+        display: block;
       }
       .hero-grid {
         display: grid;
@@ -818,6 +845,17 @@
           grid-template-columns: 1fr;
         }
       }
+
+      /* GUEST MODE */
+      body.guest #layers,
+      body.guest #booking,
+      body.guest #calendar,
+      body.guest #feed,
+      body.guest #intelligence,
+      body.guest #director,
+      body.guest footer {
+        display: none;
+      }
     </style>
   </head>
   <body>
@@ -826,7 +864,7 @@
     <header class="nav" role="banner">
       <div class="nav-inner">
         <a href="#" class="brand" aria-label="GroomHub home">
-          <span class="brand-logo">✂</span> Groom<span>Hub</span>
+          <span class="brand-logo">✂GroomHub</span>
         </a>
         <span
           id="active-user-tag"
@@ -872,27 +910,11 @@
               >
             </div>
           </div>
-          <div class="hero-card" aria-label="Platform live telemetry metrics">
-            <h3 style="margin: 0 0 0.25rem; color: #fff">
-              Live Ecosystem Snapshot
-            </h3>
-            <p style="margin: 0; color: var(--text-muted); font-size: 0.85rem">
-              Cohort performance telemetry metrics
-            </p>
-            <div class="stat-row">
-              <div class="stat">
-                <span class="stat-num">432</span
-                ><span class="stat-label">Bookings</span>
-              </div>
-              <div class="stat">
-                <span class="stat-num">28</span
-                ><span class="stat-label">Stylists</span>
-              </div>
-              <div class="stat">
-                <span class="stat-num">100%</span
-                ><span class="stat-label">Conflict-Free</span>
-              </div>
-            </div>
+          <div class="hero-card">
+            <img
+              src="images/hero-campus-barber.jpg"
+              alt="Student barber providing service"
+            />
           </div>
         </div>
       </section>
@@ -970,7 +992,7 @@
       <section class="layer" id="booking">
         <div class="container">
           <div class="section-head">
-            <span class="eyebrow">Core Instance Matrix</span>
+            <span class="eyebrow">Booking Form</span>
             <h2>Constraint Testing Interface</h2>
             <p>
               Test the structural cross-check rule directly. Selecting hours
@@ -992,9 +1014,9 @@
                   />
                 </div>
                 <div class="form-group">
-                  <label for="b-service">Operational Service Profile</label>
+                  <label for="b-service">Select a Service</label>
                   <select id="b-service" required>
-                    <option value="">Choose service configuration...</option>
+                    <option value="">Choose service from list...</option>
                     <option value="braids">Box Braids — R200</option>
                     <option value="fade">Fade Cut — R120</option>
                     <option value="lineup">Line Up — R60</option>
@@ -1002,9 +1024,9 @@
                   </select>
                 </div>
                 <div class="form-group">
-                  <label for="b-day">Target Business Day</label>
+                  <label for="b-day">Business Weekday</label>
                   <select id="b-day" required>
-                    <option value="">Select calendar window...</option>
+                    <option value="">Select calendar day...</option>
                     <option>Monday</option>
                     <option>Tuesday</option>
                     <option>Wednesday</option>
@@ -1013,7 +1035,7 @@
                   </select>
                 </div>
                 <div class="form-group">
-                  <label for="b-time">Operational Time Block</label>
+                  <label for="b-time">Appointment Time 08:00 - 17:00</label>
                   <input type="time" id="b-time" required />
                 </div>
                 <button
@@ -1025,7 +1047,7 @@
                     margin-top: 0.5rem;
                   "
                 >
-                  Process Transaction Instance
+                  Submit Booking
                 </button>
                 <div id="booking-alert" role="status" aria-live="polite"></div>
 
@@ -1104,7 +1126,7 @@
             <h2>Academic Calendar</h2>
             <p>
               View important dates and availability while keeping bookings
-              conflict-free.
+              conflict-free. Live Google Calendar feed
             </p>
           </div>
 
@@ -1125,7 +1147,7 @@
             <h2>Verified Transformation Feed</h2>
             <p>
               Real-time lookbook assets created across the community ecosystem,
-              tracking style details and student rankings.
+              tracking style details and student rankings. No Cyber bullying.
             </p>
           </div>
           <div class="feed" id="feed-list"></div>
@@ -1265,6 +1287,20 @@
                 >
                   Log In
                 </button>
+
+                <button
+                  type="button"
+                  id="demo-login"
+                  class="btn btn-ghost"
+                  style="
+                    width: 100%;
+                    justify-content: center;
+                    margin-top: 0.75rem;
+                  "
+                >
+                  Demo Account
+                </button>
+
                 <div
                   id="login-alert"
                   class="alert"
@@ -1456,6 +1492,16 @@
         return safeJsonParse(raw, null);
       };
 
+      // ============ GUEST MODE UI CONTROL ============
+      const applyGuestMode = () => {
+        const session = getSession();
+        if (!session) {
+          document.body.classList.add("guest");
+        } else {
+          document.body.classList.remove("guest");
+        }
+      };
+
       const setSession = (session) => {
         if (!session) {
           localStorage.removeItem(AUTH_SESSION_KEY);
@@ -1498,6 +1544,7 @@
             (e) => {
               e.preventDefault();
               setSession(null);
+              applyGuestMode();
               renderAuthUI();
             },
             { once: true }
@@ -1586,6 +1633,7 @@
           }
 
           setSession({ name: user.name, email: user.email });
+          applyGuestMode();
           renderAuthUI();
           lockAuthLinkToSection();
 
@@ -1595,7 +1643,22 @@
         });
       }
 
+      const demoLoginBtn = document.getElementById("demo-login");
+      if (demoLoginBtn) {
+        demoLoginBtn.addEventListener("click", () => {
+          setSession({
+            name: "Demo User",
+            email: "demo@groomhub.local",
+          });
+          renderAuthUI();
+          location.hash = "#layers";
+          applyGuestMode();
+          lockAuthLinkToSection();
+        });
+      }
+
       // Initial render
+      applyGuestMode();
       renderAuthUI();
       lockAuthLinkToSection();
 
@@ -1678,6 +1741,8 @@
         {
           id: 1,
           practitioner: "Lwazi M.",
+          before: "images/lookbook/fade-before.jpg",
+          after: "images/lookbook/fade-after.jpg",
           portfolio: "Fade Cut",
           tier: "master",
           summary:
@@ -1713,45 +1778,137 @@
       const targetFeedContainer = document.getElementById("feed-list");
 
       const generateLookbookFeed = () => {
-        targetFeedContainer.innerHTML = lookbookDataset
-          .map(
-            (item) => `
-      <article class="post" data-id="${item.id}">
-        <header class="post-head">
-          <div class="user-profile">
-            <div class="avatar" aria-hidden="true">${item.practitioner.charAt(
-              0
-            )}</div>
-            <div class="post-meta">
-              <strong>${item.practitioner}
-                <span class="badge ${item.tier}">${
-              item.tier === "master" ? "Fade Specialist" : "Rising Talent"
-            }</span>
-              </strong>
-              <small>${item.portfolio} · ${item.age}</small>
-            </div>
-          </div>
-        </header>
-        <p class="post-caption">${item.summary}</p>
-        <div class="ba-images">
-          <div class="ba-img before" aria-label="Before modification state asset">ASSET STENCIL: BEFORE</div>
-          <div class="ba-img after" aria-label="After transformation state asset">ASSET STENCIL: AFTER</div>
-        </div>
-        <div class="post-actions">
-          <button class="like-btn" data-id="${
-            item.id
-          }" aria-label="Affirm transactional asset validation score">
-            ♥ <span class="count">${item.positiveMetrics}</span>
-          </button>
-          <button aria-label="View asset review details">💬 ${
-            item.conversationalMetrics
-          }</button>
-          <button aria-label="Forward platform transformation log">↗ Export Log</button>
-        </div>
-      </article>
-    `
-          )
-          .join("");
+        // Render feed using safe DOM APIs (avoid innerHTML/XSS patterns)
+        const escapeText = (value) => String(value);
+
+        const createEl = (tag, opts = {}) => {
+          const el = document.createElement(tag);
+          if (opts.className) el.className = opts.className;
+          if (opts.text != null) el.textContent = escapeText(opts.text);
+          if (opts.html != null) el.innerHTML = opts.html;
+          if (opts.attrs) {
+            Object.entries(opts.attrs).forEach(([k, v]) =>
+              el.setAttribute(k, String(v))
+            );
+          }
+          return el;
+        };
+
+        // Clear container before re-render
+        targetFeedContainer.textContent = "";
+
+        lookbookDataset.forEach((item) => {
+          const article = createEl("article", {
+            className: "post",
+            attrs: { "data-id": item.id },
+          });
+
+          const header = createEl("header", { className: "post-head" });
+          const userProfile = createEl("div", { className: "user-profile" });
+
+          const avatar = createEl("div", {
+            className: "avatar",
+            attrs: { "aria-hidden": "true" },
+            text: item.practitioner?.charAt(0) || "?",
+          });
+
+          const postMeta = createEl("div", { className: "post-meta" });
+          const strong = createEl("strong");
+
+          strong.appendChild(
+            document.createTextNode(escapeText(item.practitioner))
+          );
+          const badge = createEl("span", {
+            className: `badge ${item.tier}`,
+            text: item.tier === "master" ? "Fade Specialist" : "Rising Talent",
+          });
+          strong.appendChild(badge);
+
+          const small = createEl("small", {
+            text: `${escapeText(item.portfolio)} · ${escapeText(item.age)}`,
+          });
+
+          postMeta.appendChild(strong);
+          postMeta.appendChild(small);
+
+          userProfile.appendChild(avatar);
+          userProfile.appendChild(postMeta);
+
+          header.appendChild(userProfile);
+          article.appendChild(header);
+
+          const caption = createEl("p", {
+            className: "post-caption",
+            text: item.summary,
+          });
+          article.appendChild(caption);
+
+          const baImages = createEl("div", { className: "ba-images" });
+          const before = createEl("div", {
+            className: "ba-img before",
+            attrs: { "aria-label": "Before modification state asset" },
+          });
+          const after = createEl("div", {
+            className: "ba-img after",
+            attrs: { "aria-label": "After transformation state asset" },
+          });
+
+          const beforeImg = createEl("img", {
+            attrs: {
+              src: item.before,
+              alt: `${escapeText(item.practitioner)} before transformation`,
+              loading: "lazy",
+            },
+          });
+          const afterImg = createEl("img", {
+            attrs: {
+              src: item.after,
+              alt: `${escapeText(item.practitioner)} after transformation`,
+              loading: "lazy",
+            },
+          });
+
+          before.appendChild(beforeImg);
+          after.appendChild(afterImg);
+          baImages.appendChild(before);
+          baImages.appendChild(after);
+          article.appendChild(baImages);
+
+          const postActions = createEl("div", { className: "post-actions" });
+
+          const likeBtn = createEl("button", {
+            className: "like-btn",
+            attrs: {
+              "data-id": item.id,
+              "aria-label": "Affirm transactional asset validation score",
+            },
+          });
+          likeBtn.appendChild(document.createTextNode("♥ "));
+          const likeCount = createEl("span", {
+            className: "count",
+            text: item.positiveMetrics,
+          });
+          likeBtn.appendChild(likeCount);
+
+          const commentBtn = createEl("button", {
+            attrs: { "aria-label": "View asset review details" },
+          });
+          commentBtn.appendChild(
+            document.createTextNode(`💬 ${item.conversationalMetrics}`)
+          );
+
+          const exportBtn = createEl("button", {
+            attrs: { "aria-label": "Forward platform transformation log" },
+          });
+          exportBtn.appendChild(document.createTextNode("↗ Export Log"));
+
+          postActions.appendChild(likeBtn);
+          postActions.appendChild(commentBtn);
+          postActions.appendChild(exportBtn);
+
+          article.appendChild(postActions);
+          targetFeedContainer.appendChild(article);
+        });
 
         targetFeedContainer.querySelectorAll(".like-btn").forEach((btn) => {
           btn.addEventListener("click", () => {
