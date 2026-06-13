@@ -8,36 +8,66 @@
       content="GroomHub — Student Entrepreneurship Ecosystem"
     />
     <title>GroomHub | Student Entrepreneurship Ecosystem</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;0,9..144,900;1,9..144,400&family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+
     <meta name="referrer" content="no-referrer" />
     <meta http-equiv="X-Content-Type-Options" content="nosniff" />
     <meta
       http-equiv="Content-Security-Policy"
-      content="default-src 'self'; base-uri 'self'; object-src 'none'; frame-ancestors 'none'; img-src 'self' data:; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline'; connect-src 'self'; form-action 'self'; upgrade-insecure-requests"
+      content="default-src 'self'; base-uri 'self'; object-src 'none'; frame-ancestors 'none'; img-src 'self' data:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://fonts.gstatic.com; script-src 'self' 'unsafe-inline'; connect-src 'self'; form-action 'self'; upgrade-insecure-requests"
     />
 
     <style>
       :root {
-        --bg-dark: #0a0a0c;
-        --bg-panel: #121216;
-        --bg-card: #18181c;
-        --border-color: #222228;
-        --border-glow: #2d2d35;
+        --ink: #0a0a0a;
+        --ink-2: #141414;
+        --ink-3: #1c1c1c;
+        --line: #2a2a2a;
+        --line-2: #3a3a3a;
+        --paper: #f5f1ea;
+        --paper-2: #e8e2d5;
+        --gold: #d4a847;
+        --gold-bright: #f0c869;
+        --rose: #c97064;
+        --mint: #7fb89a;
+        --mute: #8a8a8a;
+        --mute-2: #b8b8b8;
+        --danger: #e07a6a;
+        --success: #7fb89a;
+        --serif: "Fraunces", Georgia, serif;
+        --sans: "Inter", system-ui, sans-serif;
+        --mono: "JetBrains Mono", ui-monospace, monospace;
+        --radius: 4px;
+        --radius-lg: 8px;
 
-        --gold: #d4af37;
-        --gold-hover: #f3cf55;
-        --gold-glow: rgba(212, 175, 55, 0.15);
+        /* Map existing theme tokens to snippet tokens (keeps current CSS working) */
+        --bg-dark: var(--ink);
+        --bg-panel: var(--ink-2);
+        --bg-card: var(--ink-3);
+        --border-color: var(--line);
+        --border-glow: var(--line-2);
 
-        --text-main: #f3f4f6;
-        --text-muted: #9ca3af;
-        --text-dark: #111827;
+        --gold-hover: var(--gold-bright);
+        --gold-glow: rgba(212, 168, 71, 0.18);
+        --gold-glow-strong: rgba(212, 168, 71, 0.28);
+        --rose-glow: rgba(201, 112, 100, 0.18);
 
-        --success: #10b981;
-        --error: #ef4444;
+        --text-main: var(--paper);
+        --text-muted: var(--mute);
+        --text-dark: var(--ink);
 
-        --radius-lg: 16px;
+        --error: var(--danger);
+
         --radius-md: 12px;
         --radius-sm: 8px;
-        --font: "Segoe UI", system-ui, -apple-system, sans-serif;
+        --font: var(--sans);
+        --font-mono: var(--mono);
       }
 
       *,
@@ -76,9 +106,17 @@
         transition: all 0.2s;
       }
       button:focus-visible,
-      a:focus-visible {
+      a:focus-visible,
+      input:focus-visible,
+      select:focus-visible,
+      textarea:focus-visible {
         outline: 2px solid var(--gold);
-        outline-offset: 2px;
+        outline-offset: 3px;
+      }
+      button:disabled {
+        cursor: not-allowed;
+        opacity: 0.6;
+        transform: none;
       }
 
       .container {
@@ -113,7 +151,26 @@
         padding: 1rem 1.5rem;
         max-width: 1280px;
         margin: 0 auto;
+        position: relative;
       }
+
+      header.nav::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: -1px;
+        height: 2px;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          var(--gold-glow-strong),
+          transparent
+        );
+        opacity: 0.55;
+        pointer-events: none;
+      }
+
       .brand {
         font-weight: 800;
         font-size: 1.4rem;
@@ -129,9 +186,12 @@
       }
       .brand-logo {
         color: var(--gold);
-        font-size: 1.6rem;
-        font-weight: normal;
+        font-size: 1.75rem;
+        font-weight: 900;
+        letter-spacing: 0.02em;
+        text-shadow: 0 0 18px var(--gold-glow-strong);
       }
+
       .nav-links {
         display: flex;
         gap: 1.75rem;
@@ -153,16 +213,266 @@
         background: transparent;
         font-size: 1.5rem;
         color: var(--text-main);
+        border: 1px solid transparent;
+        border-radius: 10px;
+        padding: 0.35rem 0.6rem;
+        min-height: 40px;
+        min-width: 44px;
+      }
+
+      .nav-toggle:focus-visible {
+        outline: 2px solid var(--gold);
+        outline-offset: 2px;
+        border-color: rgba(212, 175, 55, 0.5);
       }
 
       /* HERO SECTION */
+      /* ===== HERO (enhanced visual layer) ===== */
       .hero {
-        padding: 6rem 0 4rem;
+        min-height: 100vh;
+        padding: 9rem 0 5rem;
+        position: relative;
         background: radial-gradient(
-          circle at top right,
-          rgba(212, 175, 55, 0.07),
-          transparent 45%
+            ellipse 80% 50% at 50% -20%,
+            rgba(212, 168, 71, 0.18) 0%,
+            transparent 60%
+          ),
+          radial-gradient(
+            ellipse 60% 40% at 10% 100%,
+            rgba(201, 112, 100, 0.08) 0%,
+            transparent 60%
+          ),
+          var(--ink);
+        overflow: hidden;
+      }
+
+      .hero::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background-image: linear-gradient(
+            rgba(212, 168, 71, 0.04) 1px,
+            transparent 1px
+          ),
+          linear-gradient(90deg, rgba(212, 168, 71, 0.04) 1px, transparent 1px);
+        background-size: 80px 80px;
+        mask-image: radial-gradient(
+          ellipse 80% 60% at 50% 50%,
+          black 0%,
+          transparent 80%
         );
+        pointer-events: none;
+      }
+
+      .hero-grid {
+        display: grid;
+        grid-template-columns: 1.1fr 0.9fr;
+        gap: 5rem;
+        align-items: center;
+        position: relative;
+        z-index: 2;
+      }
+
+      .hero h1 {
+        margin: 1.5rem 0 1.5rem;
+      }
+
+      .hero h1 em {
+        font-style: italic;
+        color: var(--gold);
+        font-weight: 400;
+        position: relative;
+        display: inline-block;
+      }
+
+      .hero h1 em::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 0.05em;
+        height: 0.12em;
+        background: linear-gradient(90deg, var(--gold) 0%, transparent 100%);
+        opacity: 0.4;
+      }
+
+      .hero .lead {
+        font-size: 1.15rem;
+        color: var(--mute-2);
+        max-width: 520px;
+        margin: 0 0 2.5rem;
+        line-height: 1.6;
+      }
+
+      .hero-ctas {
+        display: flex;
+        gap: 1rem;
+        flex-wrap: wrap;
+        align-items: center;
+      }
+
+      .btn {
+        padding: 1rem 1.75rem;
+        border-radius: var(--radius);
+        font-weight: 600;
+        font-size: 0.92rem;
+        transition: all 0.25s;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.6rem;
+        letter-spacing: 0.01em;
+      }
+
+      .btn-primary {
+        background: var(--gold);
+        color: var(--ink);
+        box-shadow: 0 0 0 0 rgba(212, 168, 71, 0.4);
+      }
+
+      .btn-primary:hover {
+        background: var(--gold-bright);
+        transform: translateY(-2px);
+        box-shadow: 0 0 0 6px rgba(212, 168, 71, 0.15);
+      }
+
+      .btn-ghost {
+        color: var(--paper);
+        border: 1px solid var(--line-2);
+        background: rgba(255, 255, 255, 0.02);
+      }
+
+      .btn-ghost:hover {
+        border-color: var(--gold);
+        color: var(--gold);
+      }
+
+      .btn .arrow {
+        transition: transform 0.25s;
+      }
+      .btn:hover .arrow {
+        transform: translateX(4px);
+      }
+
+      /* Hero image stack */
+      .hero-visual {
+        position: relative;
+        height: 560px;
+      }
+      .hero-card-img {
+        position: absolute;
+        border-radius: var(--radius-lg);
+        overflow: hidden;
+        box-shadow: 0 30px 80px -20px rgba(0, 0, 0, 0.6), 0 0 0 1px var(--line);
+      }
+      .hero-card-img.main {
+        width: 75%;
+        height: 75%;
+        top: 0;
+        right: 0;
+        background: linear-gradient(
+            180deg,
+            transparent 40%,
+            rgba(10, 10, 10, 0.4) 100%
+          ),
+          url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 500"><defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="%23d4a847"/><stop offset="1" stop-color="%23c97064"/></linearGradient></defs><rect fill="url(%23g)" width="400" height="500"/><circle cx="200" cy="180" r="60" fill="%23141414" opacity=".3"/><rect x="140" y="240" width="120" height="200" rx="20" fill="%23141414" opacity=".25"/></svg>')
+            center/cover;
+      }
+      .hero-card-img.sub {
+        width: 48%;
+        height: 42%;
+        bottom: 0;
+        left: 0;
+        background: linear-gradient(135deg, var(--ink-3) 0%, var(--ink-2) 100%);
+        border: 1px solid var(--line);
+        padding: 1.5rem;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+      }
+      .hero-stat-label {
+        font-family: var(--mono);
+        font-size: 0.68rem;
+        text-transform: uppercase;
+        letter-spacing: 0.2em;
+        color: var(--mute);
+      }
+      .hero-stat-num {
+        font-family: var(--serif);
+        font-size: 3rem;
+        font-weight: 500;
+        color: var(--gold);
+        line-height: 1;
+      }
+      .hero-stat-cap {
+        font-size: 0.85rem;
+        color: var(--mute-2);
+      }
+      .hero-tag {
+        position: absolute;
+        bottom: 1.5rem;
+        left: 1.5rem;
+        right: 1.5rem;
+        z-index: 2;
+        color: var(--paper);
+        pointer-events: none;
+      }
+      .hero-tag-row {
+        display: flex;
+        align-items: center;
+        gap: 0.6rem;
+        margin-bottom: 0.4rem;
+        font-family: var(--mono);
+        font-size: 0.7rem;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        opacity: 0.85;
+      }
+      .hero-tag h4 {
+        font-family: var(--serif);
+        font-weight: 500;
+        font-size: 1.2rem;
+      }
+
+      /* Marquee */
+      .marquee {
+        border-top: 1px solid var(--line);
+        border-bottom: 1px solid var(--line);
+        padding: 1.2rem 0;
+        overflow: hidden;
+        background: var(--ink-2);
+        position: relative;
+      }
+      .marquee-track {
+        display: flex;
+        gap: 4rem;
+        animation: scroll 30s linear infinite;
+        font-family: var(--serif);
+        font-size: 1.4rem;
+        font-style: italic;
+        color: var(--mute-2);
+        white-space: nowrap;
+      }
+      .marquee-track span {
+        display: inline-flex;
+        align-items: center;
+        gap: 4rem;
+      }
+      .marquee-track .dot {
+        color: var(--gold);
+        font-size: 1rem;
+      }
+      @keyframes scroll {
+        to {
+          transform: translateX(-50%);
+        }
+      }
+
+      .hero-card {
+        background: var(--bg-panel);
+        border-radius: var(--radius-lg);
+        border: 1px solid var(--border-color);
+        padding: 2.25rem;
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3), 0 0 0 1px var(--gold-glow);
       }
 
       .hero-card img {
@@ -194,17 +504,23 @@
         display: inline-flex;
         align-items: center;
         gap: 0.5rem;
-        border: 1px solid var(--gold);
-        background: var(--gold-glow);
+        border: 1px solid var(--gold-glow-strong);
+        background: linear-gradient(
+          180deg,
+          rgba(212, 175, 55, 0.24),
+          rgba(212, 175, 55, 0.09)
+        );
         color: var(--gold);
-        padding: 0.35rem 0.85rem;
-        border-radius: 99px;
+        padding: 0.4rem 0.95rem;
+        border-radius: 999px;
         font-size: 0.75rem;
-        font-weight: 700;
+        font-weight: 800;
         letter-spacing: 1px;
         text-transform: uppercase;
         margin-bottom: 1.5rem;
+        box-shadow: 0 0 0 4px rgba(212, 175, 55, 0.06);
       }
+
       .hero h1 {
         font-size: clamp(2.2rem, 5vw, 3.75rem);
         line-height: 1.15;
@@ -261,9 +577,10 @@
         background: var(--bg-panel);
         border-radius: var(--radius-lg);
         border: 1px solid var(--border-color);
-        padding: 2rem;
-        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        padding: 2.25rem;
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3), 0 0 0 1px var(--gold-glow);
       }
+
       .stat-row {
         display: grid;
         grid-template-columns: repeat(3, 1fr);
@@ -321,6 +638,7 @@
         margin: 0 auto 3.5rem;
       }
       .eyebrow {
+        font-family: var(--font-mono);
         color: var(--gold);
         font-size: 0.75rem;
         font-weight: 700;
@@ -328,6 +646,18 @@
         text-transform: uppercase;
         display: block;
         margin-bottom: 0.5rem;
+        position: relative;
+        padding-left: 1.25rem;
+      }
+      .eyebrow::before {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 24px;
+        height: 1px;
+        background: var(--gold);
       }
       .section-head h2 {
         font-size: clamp(1.75rem, 3.5vw, 2.5rem);
@@ -354,16 +684,24 @@
 
       .card {
         background: var(--bg-panel);
-        padding: 1.75rem;
+        padding: 1.9rem;
         border-radius: var(--radius-lg);
         border: 1px solid var(--border-color);
         transition: all 0.25s ease;
       }
+
       .card:hover {
         transform: translateY(-4px);
         border-color: var(--border-glow);
         box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
       }
+
+      @media (hover: none) and (pointer: coarse) {
+        .card:hover {
+          transform: none;
+        }
+      }
+
       .card-icon {
         font-size: 1.75rem;
         margin-bottom: 1.25rem;
@@ -456,8 +794,9 @@
         padding: 2rem;
         border-radius: var(--radius-lg);
         border: 1px solid var(--border-color);
-        height: transform;
+        height: auto;
       }
+
       .schedule-header-status {
         display: flex;
         align-items: center;
@@ -625,11 +964,24 @@
         display: flex;
         align-items: center;
         gap: 0.4rem;
-        padding: 0.25rem 0.5rem;
+        padding: 0.45rem 0.65rem;
+        border-radius: 10px;
+        border: 1px solid transparent;
+        min-height: 44px;
       }
+
+      .post-actions button:focus-visible {
+        outline: 2px solid var(--gold);
+        outline-offset: 2px;
+        border-color: rgba(212, 175, 55, 0.4);
+      }
+
       .post-actions button:hover {
         color: #fff;
+        border-color: rgba(255, 255, 255, 0.12);
+        background: rgba(255, 255, 255, 0.04);
       }
+
       .post-actions button.liked {
         color: var(--gold);
         font-weight: 600;
@@ -748,6 +1100,37 @@
         text-transform: uppercase;
       }
 
+      .floating-tab {
+        position: fixed;
+        right: 18px;
+        bottom: 18px;
+        z-index: 110;
+        background: var(--gold);
+        color: var(--text-dark);
+        border-radius: 999px;
+        padding: 0.85rem 1rem;
+        font-weight: 800;
+        border: 1px solid var(--gold-glow-strong);
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.35), 0 0 0 6px var(--gold-glow);
+        transition: transform 0.2s, filter 0.2s;
+      }
+      .floating-tab:hover {
+        transform: translateY(-2px);
+        filter: brightness(1.06);
+      }
+      .floating-tab:focus-visible {
+        outline: 2px solid var(--gold);
+        outline-offset: 3px;
+      }
+
+      @media (max-width: 480px) {
+        .floating-tab {
+          right: 12px;
+          bottom: 12px;
+          padding: 0.75rem 0.9rem;
+        }
+      }
+
       /* SYSTEM FOOTER */
       footer {
         background: var(--bg-panel);
@@ -797,6 +1180,14 @@
       }
 
       /* RESPONSIVE LAYOUT TRANSLATIONS */
+      @media (prefers-reduced-motion: reduce) {
+        * {
+          scroll-behavior: auto !important;
+          transition: none !important;
+          animation: none !important;
+        }
+      }
+
       @media (max-width: 960px) {
         .hero-grid,
         .booking-wrap,
@@ -805,6 +1196,7 @@
         .footer-grid {
           grid-template-columns: 1fr;
         }
+
         .metrics-grid {
           grid-template-columns: repeat(2, 1fr);
         }
@@ -893,31 +1285,79 @@
     </header>
 
     <main id="main">
+      <button
+        type="button"
+        class="floating-tab"
+        aria-label="Quick navigation: jump to booking"
+        onclick="location.hash='#booking'"
+      >
+        ✂ Book
+      </button>
+
       <section class="hero">
         <div class="container hero-grid">
           <div>
             <div class="hero-badge">System Core Architecture</div>
-            <h1>Where Student Hustle Meets <span>Structure.</span></h1>
+            <h1>Where Student Hustle Meets <em>Structure.</em></h1>
             <p class="lead">
               An interconnected, multi-layered digital platform built for campus
               entrepreneurs to run operational brands safely alongside strict
               academic timetables.
             </p>
-            <div class="cta-row">
-              <a href="#booking" class="btn btn-primary">Book a Service</a>
+            <div class="hero-ctas cta-row">
+              <a href="#booking" class="btn btn-primary"
+                >Book a Service <span class="arrow">→</span></a
+              >
               <a href="#layers" class="btn btn-ghost"
-                >Explore System Architecture</a
+                >Explore System Architecture <span class="arrow">→</span></a
               >
             </div>
           </div>
-          <div class="hero-card">
-            <img
-              src="images/hero-campus-barber.jpg"
-              alt="Student barber providing service"
-            />
+
+          <div class="hero-visual" aria-hidden="true">
+            <div class="hero-card-img main"></div>
+            <div class="hero-card-img sub">
+              <div>
+                <div class="hero-stat-label">Constraint Engine</div>
+                <div class="hero-stat-num">0%</div>
+                <div class="hero-stat-cap">Timetable conflicts (demo)</div>
+              </div>
+              <div
+                style="
+                  margin-top: 1rem;
+                  color: var(--paper-2);
+                  font-size: 0.9rem;
+                "
+              >
+                WCAG-ready components • Secure guest gating
+              </div>
+            </div>
+            <div class="hero-tag">
+              <div class="hero-tag-row">
+                <span style="color: var(--gold)">✂</span> Operational safe mode
+              </div>
+              <h4>Campus entrepreneurship, structured by design.</h4>
+            </div>
           </div>
         </div>
       </section>
+
+      <div class="marquee" aria-hidden="true">
+        <div class="container" style="overflow: hidden">
+          <div class="marquee-track">
+            <span>
+              <span class="dot">●</span> Book conflict-free
+              <span class="dot">●</span> Validate lookbook assets
+              <span class="dot">●</span> Track analytics
+            </span>
+            <span>
+              <span class="dot">●</span> Book conflict-free
+              <span class="dot">●</span> Validate lookbook assets
+              <span class="dot">●</span> Track analytics
+            </span>
+          </div>
+        </div>
+      </div>
 
       <section class="layer" id="layers">
         <div class="container">
@@ -1461,10 +1901,31 @@
       const navToggle = document.querySelector(".nav-toggle");
       const navLinks = document.querySelector(".nav-links");
 
+      const NAV_OPEN_SESSION_KEY = "groomhub.nav.open.v1";
+
+      const getSessionBool = (key, fallback) => {
+        const raw = sessionStorage.getItem(key);
+        if (raw === null) return fallback;
+        return raw === "true";
+      };
+
+      const setSessionBool = (key, value) => {
+        sessionStorage.setItem(key, String(!!value));
+      };
+
+      // Restore nav open/closed state (UI-only)
+      const navShouldStartOpen = getSessionBool(NAV_OPEN_SESSION_KEY, false);
+      if (navShouldStartOpen) {
+        navLinks.classList.add("open");
+        navToggle.setAttribute("aria-expanded", "true");
+        navToggle.textContent = "✕";
+      }
+
       navToggle.addEventListener("click", () => {
         const open = navLinks.classList.toggle("open");
         navToggle.setAttribute("aria-expanded", open);
         navToggle.textContent = open ? "✕" : "☰";
+        setSessionBool(NAV_OPEN_SESSION_KEY, open);
       });
 
       navLinks.querySelectorAll("a").forEach((link) =>
@@ -1472,6 +1933,7 @@
           navLinks.classList.remove("open");
           navToggle.setAttribute("aria-expanded", "false");
           navToggle.textContent = "☰";
+          setSessionBool(NAV_OPEN_SESSION_KEY, false);
         })
       );
 
@@ -1708,6 +2170,44 @@
       const bookingForm = document.getElementById("booking-form");
       const feedbackAlert = document.getElementById("booking-alert");
 
+      const BOOKING_RECEIPT_KEY = "groomhub.booking.receipt.v1";
+
+      const getStoredBookingReceipt = () => {
+        try {
+          const raw = localStorage.getItem(BOOKING_RECEIPT_KEY);
+          if (!raw) return null;
+          return JSON.parse(raw);
+        } catch {
+          return null;
+        }
+      };
+
+      const setStoredBookingReceipt = (receipt) => {
+        localStorage.setItem(BOOKING_RECEIPT_KEY, JSON.stringify(receipt));
+      };
+
+      const restoreBookingReceipt = () => {
+        const receipt = getStoredBookingReceipt();
+        if (!receipt) return;
+
+        const receiptService = document.getElementById("receipt-service");
+        const receiptDay = document.getElementById("receipt-day");
+        const receiptTime = document.getElementById("receipt-time");
+
+        if (receiptService && receipt?.serviceType) {
+          receiptService.textContent = receipt.serviceType;
+        }
+        if (receiptDay && receipt?.selectedDay) {
+          receiptDay.textContent = receipt.selectedDay;
+        }
+        if (receiptTime && receipt?.selectedTime) {
+          receiptTime.textContent = receipt.selectedTime;
+        }
+      };
+
+      // Restore persisted receipt (UI-only)
+      restoreBookingReceipt();
+
       bookingForm.addEventListener("submit", (event) => {
         event.preventDefault();
         const clientName = document.getElementById("b-name").value.trim();
@@ -1735,10 +2235,18 @@
           return;
         }
 
-        // Update booking receipt
+        // Update booking receipt (UI + persistence)
         document.getElementById("receipt-service").textContent = serviceType;
         document.getElementById("receipt-day").textContent = selectedDay;
         document.getElementById("receipt-time").textContent = selectedTime;
+
+        setStoredBookingReceipt({
+          clientName,
+          serviceType,
+          selectedDay,
+          selectedTime,
+          updatedAt: Date.now(),
+        });
 
         feedbackAlert.className = "alert alert-success";
         feedbackAlert.textContent = `✅ Transaction Authorized: Booking successfully bound for ${clientName} (${serviceType}) on ${selectedDay} at ${selectedTime}. Data synchronization complete.`;
@@ -1924,10 +2432,22 @@
         });
 
         targetFeedContainer.querySelectorAll(".like-btn").forEach((btn) => {
+          // Initialize ARIA state (in case dataset changes later)
+          btn.setAttribute(
+            "aria-pressed",
+            btn.classList.contains("liked") ? "true" : "false"
+          );
+
           btn.addEventListener("click", () => {
             const matchingId = Number(btn.dataset.id);
             const dataTarget = lookbookDataset.find((x) => x.id === matchingId);
             const structureActive = btn.classList.toggle("liked");
+
+            btn.setAttribute(
+              "aria-pressed",
+              structureActive ? "true" : "false"
+            );
+
             dataTarget.positiveMetrics += structureActive ? 1 : -1;
             btn.querySelector(".count").textContent =
               dataTarget.positiveMetrics;
