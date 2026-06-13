@@ -7,3 +7,4 @@
 - [x] Remember mobile nav open/closed state (sessionStorage)
 - [x] Add ARIA `aria-pressed` toggling for lookbook like buttons
 - [x] Quick sanity check in browser (no runtime errors)
+- [x] Merge new Landing UI features (top status pill, enhanced hero, updated marquee) into index.html

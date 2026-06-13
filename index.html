@@ -730,8 +730,301 @@
       /* ENGINE LAYER (Booking & Calendar Logic) */
       .booking-wrap {
         display: grid;
-        grid-template-columns: 1.2fr 0.8fr;
-        gap: 2rem;
+        grid-template-columns: 1fr 1fr;
+        gap: 2.5rem;
+        max-width: 1100px;
+        margin: 0 auto;
+      }
+
+      /* ===== BOOKING ===== */
+      .booking-form-card {
+        background: var(--ink-3);
+        border: 1px solid var(--line);
+        border-radius: var(--radius-lg);
+        padding: 2.5rem;
+      }
+      .booking-form-card h3 {
+        font-family: var(--serif);
+        font-size: 1.6rem;
+        margin-bottom: 0.4rem;
+      }
+      .timetable-card {
+        background: linear-gradient(180deg, var(--ink-3) 0%, var(--ink-2) 100%);
+        border: 1px solid var(--line);
+        border-radius: var(--radius-lg);
+        padding: 2.5rem;
+        position: relative;
+      }
+      .timetable-card::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 2.5rem;
+        right: 2.5rem;
+        height: 1px;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          var(--gold),
+          transparent
+        );
+      }
+      .timetable-card h3 {
+        font-family: var(--serif);
+        font-size: 1.4rem;
+        margin-bottom: 0.3rem;
+      }
+      .timetable-card .sub {
+        color: var(--mute);
+        font-size: 0.85rem;
+        margin-bottom: 1.5rem;
+      }
+      .lecture-row {
+        display: grid;
+        grid-template-columns: 80px 100px 1fr;
+        gap: 1rem;
+        padding: 0.85rem 0;
+        border-bottom: 1px solid var(--line);
+        align-items: center;
+        font-size: 0.92rem;
+      }
+      .lecture-row:last-child {
+        border-bottom: none;
+      }
+      .lecture-day {
+        font-family: var(--mono);
+        font-size: 0.72rem;
+        text-transform: uppercase;
+        letter-spacing: 0.15em;
+        color: var(--gold);
+      }
+      .lecture-time {
+        font-family: var(--mono);
+        font-size: 0.85rem;
+        color: var(--mute-2);
+      }
+      .lecture-course {
+        color: var(--paper);
+      }
+      .alert {
+        margin-top: 1.2rem;
+        padding: 1rem 1.25rem;
+        border-radius: var(--radius);
+        font-size: 0.9rem;
+        font-weight: 500;
+        display: flex;
+        align-items: flex-start;
+        gap: 0.75rem;
+        animation: fadeIn 0.3s ease;
+      }
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(-5px);
+        }
+        to {
+          opacity: 1;
+          transform: none;
+        }
+      }
+      .alert-error {
+        background: rgba(224, 122, 106, 0.1);
+        color: var(--danger);
+        border: 1px solid rgba(224, 122, 106, 0.3);
+      }
+      .alert-success {
+        background: rgba(127, 184, 154, 0.1);
+        color: var(--success);
+        border: 1px solid rgba(127, 184, 154, 0.3);
+      }
+      .alert-icon {
+        font-size: 1.1rem;
+        line-height: 1;
+      }
+
+      /* ===== FEED ===== */
+      .feed {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1.5rem;
+        max-width: 1200px;
+        margin: 0 auto;
+      }
+      .post {
+        background: var(--ink-3);
+        border: 1px solid var(--line);
+        border-radius: var(--radius-lg);
+        overflow: hidden;
+        transition: all 0.35s;
+        display: flex;
+        flex-direction: column;
+      }
+      .post:hover {
+        transform: translateY(-4px);
+        border-color: var(--line-2);
+      }
+      .ba-stack {
+        position: relative;
+        aspect-ratio: 4/5;
+        overflow: hidden;
+      }
+      .ba-img {
+        position: absolute;
+        inset: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-family: var(--serif);
+        font-size: 1.4rem;
+        letter-spacing: 0.1em;
+        transition: transform 0.5s ease;
+      }
+      .ba-before {
+        background: linear-gradient(135deg, #2a2520 0%, #1a1612 100%);
+        color: var(--mute-2);
+        clip-path: polygon(0 0, 50% 0, 50% 100%, 0 100%);
+      }
+      .ba-after {
+        background: linear-gradient(135deg, var(--gold) 0%, var(--rose) 100%);
+        color: var(--ink);
+        clip-path: polygon(50% 0, 100% 0, 100% 100%, 50% 100%);
+      }
+      .ba-divider {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 50%;
+        width: 1px;
+        background: var(--gold);
+        z-index: 2;
+      }
+      .ba-divider::before,
+      .ba-divider::after {
+        content: "";
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        background: var(--ink);
+        border: 1px solid var(--gold);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .ba-divider::before {
+        top: 1rem;
+      }
+      .ba-divider::after {
+        bottom: 1rem;
+      }
+      .ba-label {
+        position: absolute;
+        top: 1rem;
+        font-family: var(--mono);
+        font-size: 0.65rem;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        padding: 0.25rem 0.6rem;
+        background: rgba(10, 10, 10, 0.6);
+        backdrop-filter: blur(8px);
+        border-radius: 99px;
+        z-index: 3;
+      }
+      .ba-label.left {
+        left: 1rem;
+        color: var(--mute-2);
+      }
+      .ba-label.right {
+        right: 1rem;
+        color: var(--ink);
+        background: rgba(245, 241, 234, 0.85);
+      }
+      .post-body {
+        padding: 1.4rem;
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+      }
+      .post-author {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        margin-bottom: 0.85rem;
+      }
+      .avatar {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, var(--gold) 0%, var(--rose) 100%);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 600;
+        color: var(--ink);
+        font-size: 0.95rem;
+      }
+      .post-name {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        font-weight: 600;
+        font-size: 0.92rem;
+      }
+      .badge {
+        font-family: var(--mono);
+        font-size: 0.62rem;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        padding: 0.18rem 0.45rem;
+        border-radius: 3px;
+        font-weight: 500;
+      }
+      .badge-master {
+        background: var(--gold);
+        color: var(--ink);
+      }
+      .badge-rising {
+        background: rgba(127, 184, 154, 0.15);
+        color: var(--mint);
+        border: 1px solid rgba(127, 184, 154, 0.3);
+      }
+      .post-meta {
+        font-size: 0.78rem;
+        color: var(--mute);
+      }
+      .post-cap {
+        color: var(--mute-2);
+        font-size: 0.9rem;
+        margin: 0 0 1rem;
+        flex: 1;
+        line-height: 1.5;
+      }
+      .post-actions {
+        display: flex;
+        gap: 0.5rem;
+        padding-top: 1rem;
+        border-top: 1px solid var(--line);
+      }
+      .post-actions button {
+        flex: 1;
+        padding: 0.55rem;
+        border-radius: var(--radius);
+        font-size: 0.82rem;
+        color: var(--mute-2);
+        transition: all 0.2s;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.35rem;
+      }
+      .post-actions button:hover {
+        background: var(--ink-2);
+        color: var(--paper);
+      }
+      .post-actions .like-btn.liked {
+        color: var(--rose);
       }
 
       .form-container {
@@ -1131,6 +1424,411 @@
         }
       }
 
+      /* ===== SECTION SHELL ===== */
+      section.layer {
+        padding: 7rem 0;
+        position: relative;
+      }
+      section.layer.alt {
+        background: var(--ink-2);
+      }
+      .section-head {
+        max-width: 780px;
+        margin: 0 auto 4rem;
+        text-align: center;
+      }
+      .section-head h2 {
+        margin: 1rem 0 1rem;
+      }
+      .section-head h2 em {
+        font-style: italic;
+        color: var(--gold);
+        font-weight: 400;
+      }
+      .section-head p {
+        color: var(--mute-2);
+        font-size: 1.08rem;
+        max-width: 600px;
+        margin: 0 auto;
+      }
+
+      /* ===== AUTH ===== */
+      .auth-wrap {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 2rem;
+        max-width: 920px;
+        margin: 0 auto;
+      }
+      .auth-card {
+        background: var(--ink-3);
+        border: 1px solid var(--line);
+        border-radius: var(--radius-lg);
+        padding: 2.5rem;
+        position: relative;
+        transition: border-color 0.3s;
+      }
+      .auth-card:hover {
+        border-color: var(--line-2);
+      }
+      .auth-card h3 {
+        font-family: var(--serif);
+        font-size: 1.6rem;
+        margin-bottom: 0.4rem;
+      }
+      .auth-card .sub {
+        color: var(--mute);
+        font-size: 0.88rem;
+        margin-bottom: 1.8rem;
+      }
+      .field {
+        margin-bottom: 1.1rem;
+      }
+      .field label {
+        display: block;
+        font-family: var(--mono);
+        font-size: 0.7rem;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+        color: var(--mute-2);
+        margin-bottom: 0.4rem;
+      }
+      .field input,
+      .field select,
+      .field textarea {
+        width: 100%;
+        padding: 0.85rem 1rem;
+        background: var(--ink);
+        border: 1px solid var(--line);
+        border-radius: var(--radius);
+        color: var(--paper);
+        font-family: inherit;
+        font-size: 0.95rem;
+        transition: all 0.2s;
+      }
+      .field input:focus,
+      .field select:focus,
+      .field textarea:focus {
+        outline: none;
+        border-color: var(--gold);
+        background: var(--ink-2);
+      }
+      .field input::placeholder {
+        color: #555;
+      }
+      .btn-block {
+        width: 100%;
+        justify-content: center;
+        margin-top: 0.5rem;
+      }
+      .auth-alt {
+        font-size: 0.82rem;
+        color: var(--mute);
+        text-align: center;
+        margin-top: 1rem;
+        padding-top: 1rem;
+        border-top: 1px solid var(--line);
+      }
+      .auth-alt a {
+        color: var(--gold);
+      }
+
+      /* ===== ARCHITECTURE CARDS ===== */
+      .arch-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1.5rem;
+      }
+      .arch-card {
+        background: var(--ink-3);
+        border: 1px solid var(--line);
+        border-radius: var(--radius-lg);
+        padding: 2rem;
+        position: relative;
+        overflow: hidden;
+        transition: all 0.35s ease;
+      }
+      .arch-card::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: radial-gradient(
+          circle at top left,
+          rgba(212, 168, 71, 0.08),
+          transparent 60%
+        );
+        opacity: 0;
+        transition: opacity 0.35s;
+      }
+      .arch-card:hover {
+        transform: translateY(-4px);
+        border-color: var(--gold);
+      }
+      .arch-card:hover::before {
+        opacity: 1;
+      }
+      .arch-num {
+        font-family: var(--serif);
+        font-size: 2.2rem;
+        font-weight: 400;
+        color: var(--gold);
+        font-style: italic;
+        line-height: 1;
+      }
+      .arch-icon {
+        width: 50px;
+        height: 50px;
+        border-radius: var(--radius);
+        background: linear-gradient(135deg, var(--ink) 0%, var(--ink-2) 100%);
+        border: 1px solid var(--line-2);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.5rem;
+        margin-bottom: 1.5rem;
+        position: relative;
+      }
+      .arch-card h3 {
+        font-family: var(--serif);
+        margin: 0.5rem 0 0.7rem;
+        font-size: 1.35rem;
+      }
+      .arch-card p {
+        color: var(--mute-2);
+        font-size: 0.95rem;
+        line-height: 1.6;
+        margin: 0;
+      }
+      .arch-tag {
+        display: inline-block;
+        margin-top: 1rem;
+        font-family: var(--mono);
+        font-size: 0.7rem;
+        color: var(--gold);
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+      }
+
+      /* ===== INTELLIGENCE ===== */
+      .intel-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1.5rem;
+        max-width: 1100px;
+        margin: 0 auto;
+      }
+      .intel-card {
+        background: linear-gradient(135deg, var(--ink-3) 0%, var(--ink-2) 100%);
+        border: 1px solid var(--line);
+        border-radius: var(--radius-lg);
+        padding: 2.25rem;
+        position: relative;
+        overflow: hidden;
+      }
+      .intel-card::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 200px;
+        height: 200px;
+        background: radial-gradient(
+          circle,
+          rgba(212, 168, 71, 0.12),
+          transparent 70%
+        );
+        pointer-events: none;
+      }
+      .intel-card h3 {
+        font-family: var(--serif);
+        font-size: 1.4rem;
+        margin-bottom: 0.4rem;
+      }
+      .intel-card .sub {
+        color: var(--mute);
+        font-size: 0.85rem;
+        margin-bottom: 1.5rem;
+      }
+      .insight {
+        background: rgba(10, 10, 10, 0.5);
+        border: 1px solid var(--line);
+        border-left: 3px solid var(--gold);
+        padding: 1.25rem;
+        border-radius: 0 var(--radius) var(--radius) 0;
+      }
+      .insight-label {
+        font-family: var(--mono);
+        font-size: 0.7rem;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+        color: var(--gold);
+        margin-bottom: 0.5rem;
+      }
+      .insight-text {
+        color: var(--paper);
+        font-size: 0.95rem;
+        margin-bottom: 0.4rem;
+      }
+      .insight-detail {
+        color: var(--mute-2);
+        font-size: 0.82rem;
+      }
+      .insight-highlight {
+        color: var(--gold);
+        font-weight: 600;
+      }
+
+      /* ===== DIRECTOR DASHBOARD ===== */
+      .metrics-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 1.25rem;
+        max-width: 1200px;
+        margin: 0 auto 2rem;
+      }
+      .metric {
+        background: var(--ink-3);
+        border: 1px solid var(--line);
+        border-radius: var(--radius-lg);
+        padding: 1.75rem;
+        position: relative;
+        transition: all 0.3s;
+      }
+      .metric:hover {
+        border-color: var(--gold);
+        transform: translateY(-2px);
+      }
+      .metric-label {
+        font-family: var(--mono);
+        font-size: 0.7rem;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+        color: var(--mute);
+        margin-bottom: 0.6rem;
+      }
+      .metric-value {
+        font-family: var(--serif);
+        font-size: 2.8rem;
+        font-weight: 500;
+        color: var(--paper);
+        line-height: 1;
+        margin-bottom: 0.5rem;
+      }
+      .metric-delta {
+        font-family: var(--mono);
+        font-size: 0.78rem;
+      }
+      .metric-delta.up {
+        color: var(--mint);
+      }
+      .metric-delta.steady {
+        color: var(--gold);
+      }
+
+      .chart-card {
+        background: var(--ink-3);
+        border: 1px solid var(--line);
+        border-radius: var(--radius-lg);
+        padding: 2rem;
+        max-width: 1200px;
+        margin: 0 auto;
+      }
+      .chart-card h3 {
+        font-family: var(--serif);
+        margin-bottom: 0.3rem;
+      }
+      .chart-card .sub {
+        color: var(--mute);
+        font-size: 0.85rem;
+        margin-bottom: 1.5rem;
+      }
+      .bar-chart {
+        display: flex;
+        align-items: flex-end;
+        gap: 1rem;
+        height: 200px;
+        padding: 1rem 0 2.5rem;
+        border-bottom: 1px solid var(--line);
+      }
+      .bar {
+        flex: 1;
+        background: linear-gradient(180deg, var(--gold) 0%, var(--rose) 100%);
+        border-radius: var(--radius) var(--radius) 0 0;
+        min-height: 8px;
+        position: relative;
+        transition: all 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+        cursor: pointer;
+      }
+      .bar:hover {
+        filter: brightness(1.15);
+      }
+      .bar-label {
+        position: absolute;
+        bottom: -2.2rem;
+        left: 0;
+        right: 0;
+        text-align: center;
+        font-family: var(--mono);
+        font-size: 0.72rem;
+        color: var(--mute-2);
+        letter-spacing: 0.05em;
+      }
+      .bar-value {
+        position: absolute;
+        top: -1.6rem;
+        left: 0;
+        right: 0;
+        text-align: center;
+        font-family: var(--mono);
+        font-size: 0.78rem;
+        color: var(--gold);
+        font-weight: 500;
+      }
+
+      /* ===== TESTIMONIAL ===== */
+      .testimonial {
+        max-width: 900px;
+        margin: 0 auto;
+        text-align: center;
+        position: relative;
+      }
+      .testimonial::before {
+        content: "";
+        font-family: var(--serif);
+        font-size: 8rem;
+        color: var(--gold);
+        opacity: 0.15;
+        position: absolute;
+        top: -3rem;
+        left: -1rem;
+        line-height: 1;
+      }
+      .testimonial blockquote {
+        font-family: var(--serif);
+        font-size: clamp(1.4rem, 2.5vw, 2rem);
+        font-style: italic;
+        font-weight: 400;
+        line-height: 1.4;
+        margin: 0 0 2rem;
+        color: var(--paper);
+      }
+      .testimonial cite {
+        font-style: normal;
+        font-family: var(--mono);
+        font-size: 0.85rem;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+        color: var(--gold);
+      }
+      .testimonial cite span {
+        color: var(--mute);
+        display: block;
+        margin-top: 0.3rem;
+        letter-spacing: 0.05em;
+        text-transform: none;
+        font-family: var(--sans);
+      }
+
       /* SYSTEM FOOTER */
       footer {
         background: var(--bg-panel);
@@ -1256,14 +1954,31 @@
     <header class="nav" role="banner">
       <div class="nav-inner">
         <a href="#" class="brand" aria-label="GroomHub home">
-          <span class="brand-logo">✂GroomHub</span>
+          <span class="brand-logo">✂GROOMHUB</span>
+          <span
+            class="status-pill"
+            id="status-pill"
+            style="
+              margin-left: 0.75rem;
+              display: inline-flex;
+              align-items: center;
+              gap: 0.35rem;
+            "
+          >
+            <span
+              class="status-dot"
+              aria-hidden="true"
+              style="
+                width: 6px;
+                height: 6px;
+                border-radius: 50%;
+                background: var(--gold);
+              "
+            ></span>
+            <span id="status-text">Guest</span>
+          </span>
         </a>
-        <span
-          id="active-user-tag"
-          class="badge master"
-          style="display: none; align-self: center"
-          >Active</span
-        >
+
         <button
           class="nav-toggle"
           aria-label="Toggle navigation"
@@ -1296,47 +2011,68 @@
 
       <section class="hero">
         <div class="container hero-grid">
-          <div>
-            <div class="hero-badge">System Core Architecture</div>
+          <div class="hero-text">
+            <span class="eyebrow">System Core Architecture</span>
             <h1>Where Student Hustle Meets <em>Structure.</em></h1>
             <p class="lead">
               An interconnected, multi-layered digital platform built for campus
               entrepreneurs to run operational brands safely alongside strict
               academic timetables.
             </p>
-            <div class="hero-ctas cta-row">
+            <div class="hero-ctas cta-row hero-ctas">
               <a href="#booking" class="btn btn-primary"
                 >Book a Service <span class="arrow">→</span></a
               >
               <a href="#layers" class="btn btn-ghost"
-                >Explore System Architecture <span class="arrow">→</span></a
+                >Explore System Architecture</a
               >
             </div>
           </div>
 
           <div class="hero-visual" aria-hidden="true">
-            <div class="hero-card-img main"></div>
-            <div class="hero-card-img sub">
-              <div>
-                <div class="hero-stat-label">Constraint Engine</div>
-                <div class="hero-stat-num">0%</div>
-                <div class="hero-stat-cap">Timetable conflicts (demo)</div>
-              </div>
-              <div
-                style="
-                  margin-top: 1rem;
-                  color: var(--paper-2);
-                  font-size: 0.9rem;
-                "
-              >
-                WCAG-ready components • Secure guest gating
+            <div class="hero-card-img main">
+              <div class="hero-tag">
+                <div class="hero-tag-row">
+                  <span style="color: var(--gold)">●</span> Featured Stylist
+                </div>
+                <h4>Master craftsmanship, on campus.</h4>
               </div>
             </div>
-            <div class="hero-tag">
-              <div class="hero-tag-row">
-                <span style="color: var(--gold)">✂</span> Operational safe mode
+
+            <div class="hero-card-img sub">
+              <div>
+                <div class="hero-stat-label">Conflict-Free Bookings</div>
+                <div class="hero-stat-num" id="hero-counter">100%</div>
+                <div class="hero-stat-cap">
+                  Academic priority enforced automatically.
+                </div>
               </div>
-              <h4>Campus entrepreneurship, structured by design.</h4>
+              <div style="display: flex; gap: 0.4rem">
+                <span
+                  style="
+                    width: 6px;
+                    height: 6px;
+                    border-radius: 50%;
+                    background: var(--gold);
+                  "
+                ></span>
+                <span
+                  style="
+                    width: 6px;
+                    height: 6px;
+                    border-radius: 50%;
+                    background: var(--line-2);
+                  "
+                ></span>
+                <span
+                  style="
+                    width: 6px;
+                    height: 6px;
+                    border-radius: 50%;
+                    background: var(--line-2);
+                  "
+                ></span>
+              </div>
             </div>
           </div>
         </div>
@@ -1346,14 +2082,18 @@
         <div class="container" style="overflow: hidden">
           <div class="marquee-track">
             <span>
-              <span class="dot">●</span> Book conflict-free
-              <span class="dot">●</span> Validate lookbook assets
-              <span class="dot">●</span> Track analytics
+              Braids <span class="dot">●</span> Cuts
+              <span class="dot">●</span> Lashes <span class="dot">●</span> Nails
+              <span class="dot">●</span> Fades <span class="dot">●</span> Locs
+              <span class="dot">●</span> Brows
+              <span class="dot">●</span> Skincare <span class="dot">●</span>
             </span>
             <span>
-              <span class="dot">●</span> Book conflict-free
-              <span class="dot">●</span> Validate lookbook assets
-              <span class="dot">●</span> Track analytics
+              Braids <span class="dot">●</span> Cuts
+              <span class="dot">●</span> Lashes <span class="dot">●</span> Nails
+              <span class="dot">●</span> Fades <span class="dot">●</span> Locs
+              <span class="dot">●</span> Brows
+              <span class="dot">●</span> Skincare <span class="dot">●</span>
             </span>
           </div>
         </div>
@@ -1370,8 +2110,8 @@
               parameters.
             </p>
           </div>
-          <div class="grid grid-3">
-            <article class="card">
+          <div class="arch-grid grid-3">
+            <article class="arch-card card">
               <div class="card-icon" aria-hidden="true">📚</div>
               <h3>Academic Integrity</h3>
               <p>
@@ -1380,7 +2120,7 @@
                 against schedule interference.
               </p>
             </article>
-            <article class="card">
+            <article class="arch-card card">
               <div class="card-icon" aria-hidden="true">✨</div>
               <h3>Personal Ledger</h3>
               <p>
@@ -1389,7 +2129,7 @@
                 habits.
               </p>
             </article>
-            <article class="card">
+            <article class="arch-card card">
               <div class="card-icon" aria-hidden="true">💬</div>
               <h3>Social Graph</h3>
               <p>
@@ -1398,7 +2138,7 @@
                 trusted reach.
               </p>
             </article>
-            <article class="card">
+            <article class="arch-card card">
               <div class="card-icon" aria-hidden="true">🧠</div>
               <h3>Predictive Layer</h3>
               <p>
@@ -1407,7 +2147,7 @@
                 loads.
               </p>
             </article>
-            <article class="card">
+            <article class="arch-card card">
               <div class="card-icon" aria-hidden="true">📊</div>
               <h3>Director Portal</h3>
               <p>
@@ -1416,7 +2156,7 @@
                 scale details.
               </p>
             </article>
-            <article class="card">
+            <article class="arch-card card">
               <div class="card-icon" aria-hidden="true">♿</div>
               <h3>POUR Compliance</h3>
               <p>
@@ -1783,22 +2523,22 @@
             </p>
           </div>
           <div class="metrics-grid" style="margin-bottom: 2rem">
-            <div class="metric-card">
+            <div class="metric metric-card">
               <span class="label">Active Student Brands</span>
               <span class="value">28</span>
               <span class="delta">▲ 8% vs baseline</span>
             </div>
-            <div class="metric-card">
+            <div class="metric metric-card">
               <span class="label">Processed Bookings</span>
               <span class="value">432</span>
               <span class="delta">▲ 18% vs baseline</span>
             </div>
-            <div class="metric-card">
+            <div class="metric metric-card">
               <span class="label">Timetable Conflict Rate</span>
               <span class="value">0%</span>
               <span class="delta compliant">Absolute Compliance</span>
             </div>
-            <div class="metric-card">
+            <div class="metric metric-card">
               <span class="label">Average Rating Scale</span>
               <span class="value">4.8</span>
               <span class="delta">▲ 0.2 adjustment</span>
@@ -1808,6 +2548,29 @@
             <h3 style="margin: 0; font-size: 1.1rem; font-weight: 600">
               System Transaction Volume Distribution
             </h3>
+
+            <div class="testimonial" aria-label="Director testimonials">
+              <blockquote>
+                “Operations feel effortless when the system predicts constraints
+                before they become conflicts.”
+              </blockquote>
+              <cite>
+                Program Director <span>GroomHub Analytics Office</span>
+              </cite>
+            </div>
+
+            <div
+              class="sub"
+              style="
+                text-align: center;
+                margin-top: -1rem;
+                color: var(--mute);
+                font-size: 0.85rem;
+              "
+            >
+              Trusted feedback to validate the constraint model.
+            </div>
+            <div style="height: 1rem"></div>
             <div
               class="bar-chart"
               role="img"
@@ -1981,27 +2744,31 @@
         }
       };
 
-      const activeUserTag = document.getElementById("active-user-tag");
+      const statusText = document.getElementById("status-text");
+      const statusPill = document.getElementById("status-pill");
       const authLink = document.getElementById("auth-link");
 
       const renderAuthUI = () => {
         const session = getSession();
+
+        // Guest
         if (!session) {
-          if (activeUserTag) {
-            activeUserTag.style.display = "none";
-            activeUserTag.textContent = "Active";
+          if (statusText) statusText.textContent = "Guest";
+          if (statusPill) {
+            statusPill.style.background = "rgba(16, 185, 129, 0.1)";
+            statusPill.style.color = "var(--success)";
           }
           if (authLink) authLink.textContent = "Register";
           return;
         }
 
-        if (activeUserTag) {
-          activeUserTag.style.display = "inline-flex";
-          activeUserTag.textContent = session.name ? session.name : "Active";
-          activeUserTag.classList.remove("master");
-          activeUserTag.classList.add("rising");
+        // Logged-in
+        if (statusText)
+          statusText.textContent = session.name ? session.name : "Active";
+        if (statusPill) {
+          statusPill.style.background = "rgba(212, 168, 71, 0.14)";
+          statusPill.style.color = "var(--gold)";
         }
-
         if (authLink) authLink.textContent = "Log out";
       };
 
